@@ -87,10 +87,10 @@ def get_rnasamba_model(maxlen, protein_maxlen):
                                            weights=[emb_mat_nuc], trainable=False, mask_zero=False)
     emb_nuc = embedding_layer_nucleotide(nucleotide_layer)
     nucleotide_branch_1 = IGLOO1D(
-        emb_nuc, nb_patches=900, nb_filters_conv1d=6, return_sequences=False, padding_style='same',
+        emb_nuc, nb_patches=900, nb_filters_conv1d=6, padding_style='same',
         add_batchnorm=True, nb_stacks=6, conv1d_kernel=1, l2reg=0.01, DR=0.30, max_pooling_kernel=8)
     nucleotide_branch_2 = IGLOO1D(
-        emb_nuc, nb_patches=900, nb_filters_conv1d=6, return_sequences=False, padding_style='same',
+        emb_nuc, nb_patches=900, nb_filters_conv1d=6, padding_style='same',
         add_batchnorm=True, nb_stacks=6, conv1d_kernel=3, l2reg=0.01, DR=0.30, max_pooling_kernel=8)
     first_branch = Concatenate(axis=-1)([nucleotide_branch_1, nucleotide_branch_2])
     first_branch = Dense(128)(first_branch)
@@ -125,7 +125,7 @@ def get_rnasamba_model(maxlen, protein_maxlen):
                                         weights=[emb_mat_prot], trainable=False, mask_zero=False)
     emb_prot = embedding_layer_protein(protein_layer)
     protein_branch = IGLOO1D(
-        emb_prot, nb_patches=600, nb_filters_conv1d=8, return_sequences=False, padding_style='same',
+        emb_prot, nb_patches=600, nb_filters_conv1d=8, padding_style='same',
         add_batchnorm=True, nb_stacks=6, conv1d_kernel=3, l2reg=0.13, DR=0.30, max_pooling_kernel=2)
     protein_branch = Dense(64)(protein_branch)
     protein_branch = BatchNormalization()(protein_branch)
