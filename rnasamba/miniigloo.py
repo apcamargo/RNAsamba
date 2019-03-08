@@ -185,8 +185,6 @@ def gen_filters_igloo_newstyle1Donly(
         if return_sequences == True and (nb_sequences != -1):
             if step < vector_size-nb_sequences:
                 continue
-        if step % 10 == 0:
-            print('step...', step)
         COLLECTA = []
         if step < patch_size:
             for kk in range(nb_patches):
