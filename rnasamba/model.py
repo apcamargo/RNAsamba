@@ -145,7 +145,6 @@ def get_rnasamba_model(maxlen, protein_maxlen):
     # Second branch:
     second_branch = Concatenate(
         axis=-1)([kmer_branch, orf_length_branch, protein_branch, aa_branch])
-    print(second_branch.shape)
     second_branch = Dense(128)(second_branch)
     second_branch = BatchNormalization()(second_branch)
     second_branch = Activation('relu')(second_branch)
