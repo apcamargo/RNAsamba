@@ -5,14 +5,14 @@ from Bio import Seq, SeqIO
 
 def read_fasta(filename, tokenize=False):
     seqs = []
-    with open(filename, "rU") as handle:
+    with open(filename) as handle:
         if tokenize:
-            for record in SeqIO.parse(handle, "fasta"):
+            for record in SeqIO.parse(handle, 'fasta'):
                 sequence_str = str(record.seq).upper()
                 sequence_name = record.description
                 seqs.append((tokenize_dna(sequence_str), sequence_name))
         else:
-            for record in SeqIO.parse(handle, "fasta"):
+            for record in SeqIO.parse(handle, 'fasta'):
                 sequence_str = str(record.seq).upper()
                 sequence_name = record.description
                 seqs.append((sequence_str, sequence_name))
