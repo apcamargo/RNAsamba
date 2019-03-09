@@ -23,11 +23,11 @@ if __name__ == '__main__':
     parser.add_argument('output_file',
                         help='output HDF5 file containing weights of the newly trained RNAsamba network.')
     parser.add_argument('--batch_size',
-                        default=128, help='number of samples per gradient update.')
+                        default=128, type=int, help='number of samples per gradient update.')
     parser.add_argument('--epochs',
-                        default=40, help='number of epochs to train the model.')
+                        default=40, type=int, help='number of epochs to train the model.')
     parser.add_argument('--verbose',
-                        default=0, help='show the progress of the training.')
+                        default=0, type=int, help='show the progress of the training.')
     if len(sys.argv) < 2:
         parser.print_help()
         sys.exit(1)
