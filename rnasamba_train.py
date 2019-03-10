@@ -8,7 +8,7 @@ from rnasamba import RNAsambaTrainModel
 
 def main(coding_file, noncoding_file, output_file, batch_size, epochs, verbose):
     """Train a classification model from training data and saves the weights into a HDF5 file."""
-    trained = RNAsambaTrainModel(coding_file, noncoding_file, output_file,
+    trained = RNAsambaTrainModel(coding_file, noncoding_file,
                                  batch_size=batch_size, epochs=epochs, verbose=verbose)
     trained.model.save_weights(output_file)
 

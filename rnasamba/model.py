@@ -45,7 +45,7 @@ class RNAsambaClassificationModel:
 
 
 class RNAsambaTrainModel:
-    def __init__(self, coding_file, noncoding_file, output_file, batch_size=128, epochs=40, verbose=0):
+    def __init__(self, coding_file, noncoding_file, batch_size=128, epochs=40, verbose=0):
         print('1. Computing network inputs.')
         self.coding_input = RNAsambaInput(coding_file)
         self.noncoding_input = RNAsambaInput(noncoding_file)
