@@ -1,3 +1,5 @@
+import logging
+
 import numpy as np
 
 import tensorflow as tf
@@ -11,8 +13,13 @@ from rnasamba.miniigloo import IGLOO1D, RNAsambaAttention
 
 
 class RNAsambaClassificationModel:
-    def __init__(self, fasta_file, weights_file):
-        print('1. Computing network inputs.')
+    def __init__(self, fasta_file, weights_file, verbose=0):
+        if verbose > 0:
+            logging.basicConfig(level=logging.INFO, format='%(message)s')
+        else:
+            logging.basicConfig(level=logging.WARNING, format='%(message)s')
+        logger = logging.getLogger()
+        logger.info('1. Computing network inputs.')
         self.input = RNAsambaInput(fasta_file)
         self.maxlen = self.input.maxlen
         self.protein_maxlen = self.input.protein_maxlen
@@ -22,11 +29,11 @@ class RNAsambaClassificationModel:
                            'kmer_frequency_layer': self.input.kmer_frequency_input,
                            'protein_layer': self.input.protein_input,
                            'aa_frequency_layer': self.input.aa_frequency_input}
-        print('2. Generating the network.')
+        logger.info('2. Building the model.')
         self.model = get_rnasamba_model(self.maxlen, self.protein_maxlen)
-        print('3. Loading weights.')
+        logger.info('3. Loading network weights.')
         self.model.load_weights(weights_file)
-        print('4. Classifying sequences.')
+        logger.info('4. Classifying sequences.')
         self.predictions = self.model.predict(self.input_dict)
 
     def write_classification_output(self, output_file):
@@ -46,7 +53,14 @@ class RNAsambaClassificationModel:
 
 class RNAsambaTrainModel:
     def __init__(self, coding_file, noncoding_file, batch_size=128, epochs=40, verbose=0):
-        print('1. Computing network inputs.')
+        if verbose > 0:
+            verbose_keras = verbose - 1
+            logging.basicConfig(level=logging.INFO, format='%(message)s')
+        else:
+            verbose_keras = verbose
+            logging.basicConfig(level=logging.WARNING, format='%(message)s')
+        logger = logging.getLogger()
+        logger.info('1. Computing network inputs.')
         self.coding_input = RNAsambaInput(coding_file)
         self.noncoding_input = RNAsambaInput(noncoding_file)
         self.maxlen = self.coding_input.maxlen
@@ -63,11 +77,11 @@ class RNAsambaTrainModel:
                 [self.coding_input.protein_input, self.noncoding_input.protein_input]),
             'aa_frequency_layer': np.concatenate(
                 [self.coding_input.aa_frequency_input, self.noncoding_input.aa_frequency_input])}
-        print('2. Generating the network.')
+        logger.info('2. Building the model.')
         self.model = get_rnasamba_model(self.maxlen, self.protein_maxlen)
-        print('3. Training the network.')
+        logger.info('3. Training the network.')
         self.model.fit(self.input_dict, self.labels,
-                       shuffle=True, batch_size=batch_size, epochs=epochs, verbose=verbose)
+                       shuffle=True, batch_size=batch_size, epochs=epochs, verbose=verbose_keras)
 
 
 def get_rnasamba_model(maxlen, protein_maxlen):

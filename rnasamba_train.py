@@ -22,12 +22,13 @@ if __name__ == '__main__':
                         help='input FASTA file containing sequences of noncoding transcripts.')
     parser.add_argument('output_file',
                         help='output HDF5 file containing weights of the newly trained RNAsamba network.')
-    parser.add_argument('--batch_size',
+    parser.add_argument('-b', '--batch_size',
                         default=128, type=int, help='number of samples per gradient update.')
-    parser.add_argument('--epochs',
+    parser.add_argument('-e', '--epochs',
                         default=40, type=int, help='number of epochs to train the model.')
-    parser.add_argument('--verbose',
-                        default=0, type=int, help='show the progress of the training.')
+    parser.add_argument('-v', '--verbose',
+                        default=0, type=int, choices=[0, 1, 2, 3],
+                        help='print the progress of the training. 0 = silent, 1 = current step, 2 = progress bar, 3 = one line per epoch.')
     if len(sys.argv) < 2:
         parser.print_help()
         sys.exit(1)

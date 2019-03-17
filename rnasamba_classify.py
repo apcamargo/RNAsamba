@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 
 import argparse
 import sys
@@ -6,9 +6,9 @@ import sys
 from rnasamba import RNAsambaClassificationModel
 
 
-def main(fasta_file, weights_file, output_file):
+def main(fasta_file, weights_file, output_file, verbose):
     """Classify sequences from a input FASTA file."""
-    classification = RNAsambaClassificationModel(fasta_file, weights_file)
+    classification = RNAsambaClassificationModel(fasta_file, weights_file, verbose=verbose)
     classification.write_classification_output(output_file)
 
 
@@ -21,6 +21,9 @@ if __name__ == '__main__':
                         help='input HDF5 file containing weights of a trained RNAsamba network.')
     parser.add_argument('output_file',
                         help='output TSV file containing the results of the classification.')
+    parser.add_argument('-v', '--verbose',
+                        default=0, type=int, choices=[0, 1],
+                        help='print the progress of the classification. 0 = silent, 1 = current step.')
     if len(sys.argv) < 2:
         parser.print_help()
         sys.exit(1)
