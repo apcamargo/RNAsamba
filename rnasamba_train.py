@@ -6,9 +6,9 @@ import sys
 from rnasamba import RNAsambaTrainModel
 
 
-def main(coding_file, noncoding_file, output_file, batch_size, epochs, verbose):
+def main(coding_file, noncoding_file, output_file, early_stop, batch_size, epochs, verbose):
     """Train a classification model from training data and saves the weights into a HDF5 file."""
-    trained = RNAsambaTrainModel(coding_file, noncoding_file,
+    trained = RNAsambaTrainModel(coding_file, noncoding_file, early_stop=early_stop,
                                  batch_size=batch_size, epochs=epochs, verbose=verbose)
     trained.model.save_weights(output_file)
 
@@ -22,6 +22,8 @@ if __name__ == '__main__':
                         help='input FASTA file containing sequences of noncoding transcripts.')
     parser.add_argument('output_file',
                         help='output HDF5 file containing weights of the newly trained RNAsamba network.')
+    parser.add_argument('-s', '--early_stop',
+                        action='store_true', help='stops training if the model stops improving after 5 epochs (a fraction of 0.1 of the train set is set apart for validation).')
     parser.add_argument('-b', '--batch_size',
                         default=128, type=int, help='number of samples per gradient update.')
     parser.add_argument('-e', '--epochs',
