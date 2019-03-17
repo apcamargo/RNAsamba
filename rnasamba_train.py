@@ -23,7 +23,7 @@ if __name__ == '__main__':
     parser.add_argument('output_file',
                         help='output HDF5 file containing weights of the newly trained RNAsamba network.')
     parser.add_argument('-s', '--early_stop',
-                        action='store_true', help='stops training if the model stops improving after 5 epochs (a fraction of 0.1 of the train set is set apart for validation).')
+                        default=0, type=int, help='number of epochs after lowest validation loss before stopping training (a fraction of 0.1 of the train set is set apart for validation and the model with the lowest validation loss will be saved).')
     parser.add_argument('-b', '--batch_size',
                         default=128, type=int, help='number of samples per gradient update.')
     parser.add_argument('-e', '--epochs',

@@ -53,7 +53,7 @@ class RNAsambaClassificationModel:
 
 
 class RNAsambaTrainModel:
-    def __init__(self, coding_file, noncoding_file, early_stop=False, batch_size=128, epochs=40, verbose=0):
+    def __init__(self, coding_file, noncoding_file, early_stop=0, batch_size=128, epochs=40, verbose=0):
         if verbose > 0:
             verbose_keras = verbose - 1
             logging.basicConfig(level=logging.INFO, format='%(message)s')
@@ -81,19 +81,21 @@ class RNAsambaTrainModel:
         logger.info('2. Building the model.')
         self.model = get_rnasamba_model(self.maxlen, self.protein_maxlen)
         logger.info('3. Training the network.')
-        if early_stop:
+        if early_stop > 0:
             seed = np.random.randint(0, 50)
             np.random.seed(seed)
             np.random.shuffle(self.labels)
             for i in self.input_dict:
                 np.random.seed(seed)
                 np.random.shuffle(self.input_dict[i])
-            early_stop_call = EarlyStopping(monitor='val_loss', patience=5, verbose=verbose_keras)
-            self.model.fit(self.input_dict, self.labels, callbacks=[early_stop_call], validation_split=0.1,
-                           shuffle=True, batch_size=batch_size, epochs=epochs, verbose=verbose_keras)
+            early_stop_call = EarlyStopping(monitor='val_loss', patience=early_stop,
+                                            restore_best_weights=True, verbose=verbose_keras)
+            self.model.fit(self.input_dict, self.labels, callbacks=[early_stop_call],
+                           validation_split=0.1, shuffle=True, batch_size=batch_size, epochs=epochs,
+                           verbose=verbose_keras)
         else:
-            self.model.fit(self.input_dict, self.labels,
-                           shuffle=True, batch_size=batch_size, epochs=epochs, verbose=verbose_keras)
+            self.model.fit(self.input_dict, self.labels, shuffle=True,
+                           batch_size=batch_size, epochs=epochs, verbose=verbose_keras)
 
 
 def get_rnasamba_model(maxlen, protein_maxlen):
