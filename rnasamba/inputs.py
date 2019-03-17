@@ -2,9 +2,9 @@ import itertools
 from collections import Counter
 
 import numpy as np
-
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
+
 from rnasamba import sequences
 
 

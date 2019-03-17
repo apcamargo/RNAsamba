@@ -1,13 +1,13 @@
 import logging
 
 import numpy as np
-
 import tensorflow as tf
 from keras import optimizers
 from keras.layers import (Activation, Concatenate, Dense, Dropout, Embedding,
                           Input, Lambda)
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
+
 from rnasamba.inputs import RNAsambaInput
 from rnasamba.miniigloo import IGLOO1D, RNAsambaAttention
 
