@@ -14,7 +14,7 @@ from rnasamba.miniigloo import IGLOO1D, RNAsambaAttention
 
 
 class RNAsambaClassificationModel:
-    def __init__(self, fasta_file, weights_file, verbose=0):
+    def __init__(self, fasta_file, weights, verbose=0):
         if verbose > 0:
             logging.basicConfig(level=logging.INFO, format='%(message)s')
         else:
@@ -30,12 +30,23 @@ class RNAsambaClassificationModel:
                            'kmer_frequency_layer': self.input.kmer_frequency_input,
                            'protein_layer': self.input.protein_input,
                            'aa_frequency_layer': self.input.aa_frequency_input}
-        logger.info('2. Building the model.')
-        self.model = get_rnasamba_model(self.maxlen, self.protein_maxlen)
-        logger.info('3. Loading network weights.')
-        self.model.load_weights(weights_file)
-        logger.info('4. Classifying sequences.')
-        self.predictions = self.model.predict(self.input_dict)
+        if len(weights) == 1:
+            logger.info('2. Building the model.')
+            model = get_rnasamba_model(self.maxlen, self.protein_maxlen)
+            logger.info('3. Loading network weights.')
+            model.load_weights(weights[0])
+            logger.info('4. Classifying sequences.')
+            self.predictions = model.predict(self.input_dict)
+        else:
+            logger.info('2. Building the models.')
+            n_models = len(weights)
+            models = [get_rnasamba_model(self.maxlen, self.protein_maxlen) for i in range(n_models)]
+            logger.info('3. Loading network weights.')
+            for i in range(n_models):
+                models[i].load_weights(weights[i])
+            logger.info('4. Classifying sequences using an ensemble of {} models.'.format(n_models))
+            self.predictions = np.average([models[i].predict(self.input_dict)
+                                           for i in range(n_models)], axis=0)
 
     def write_classification_output(self, output_file):
         coding_score = self.predictions[:, 1]
