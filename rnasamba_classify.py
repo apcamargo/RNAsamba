@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser.add_argument('output_file',
                         help='output TSV file containing the results of the classification.')
     parser.add_argument('fasta_file',
-                        help='input FASTA file containing complete sequences of protein-coding transcripts.')
+                        help='input FASTA file containing transcript sequences.')
     parser.add_argument('weights',
                         nargs='+', help='input HDF5 file(s) containing weights of a trained RNAsamba network (if more than a file is provided, an ensembling of the models will be performed).')
     parser.add_argument('-v', '--verbose',
