@@ -1,9 +1,4 @@
-import itertools
-from collections import Counter
-
-import numpy as np
 from keras.preprocessing.sequence import pad_sequences
-from keras.utils import to_categorical
 
 from rnasamba import sequences
 
@@ -28,7 +23,7 @@ class RNAsambaInput:
         self.sequence_name = [seq[1] for seq in self._nucleotide_sequences]
 
     def get_orfs(self):
-        orfs = [sequences.get_longest_orf(seq[0]) for seq in self._nucleotide_sequences]
+        orfs = [sequences.longest_orf(seq[0]) for seq in self._nucleotide_sequences]
         return orfs
 
     def get_nucleotide_input(self):
@@ -37,37 +32,11 @@ class RNAsambaInput:
         return nucleotide_input
 
     def get_kmer_frequency_input(self):
-        kmer_frequency_input = []
-        bases = ['A', 'T', 'C', 'G']
-        kmer_lengths = [2, 3, 4]
-        for nucleotide_seq in self._nucleotide_sequences:
-            matches = [bases, bases]
-            sequence_kmer_frequency = []
-            for current_length in kmer_lengths:
-                current_seq = nucleotide_seq[0]
-                total_kmers = len(current_seq)-(current_length-1)
-                kmer_count = sequences.count_kmers(current_seq, current_length)
-                for match in itertools.product(*matches):
-                    current_kmer = ''.join(match)
-                    if current_kmer in kmer_count:
-                        sequence_kmer_frequency.append(kmer_count[current_kmer]/(total_kmers))
-                    else:
-                        sequence_kmer_frequency.append(0)
-                matches.append(bases)
-            kmer_frequency_input.append(sequence_kmer_frequency)
-        kmer_frequency_input = np.stack(kmer_frequency_input)
+        kmer_frequency_input = sequences.kmer_frequency(self._nucleotide_sequences)
         return kmer_frequency_input
 
     def get_orf_indicator_input(self):
-        orf_indicator_input = []
-        for orf in self._orfs:
-            orf_vector = np.zeros(self.maxlen)
-            if orf[0] > 1:
-                orf_vector[orf[1]:orf[1]+orf[0]*3] = 1
-            orf_indicator_input.append(orf_vector)
-        orf_indicator_input = pad_sequences(orf_indicator_input, padding='post', maxlen=self.maxlen)
-        orf_indicator_input = to_categorical(orf_indicator_input, num_classes=2)
-        orf_indicator_input = np.stack(orf_indicator_input)
+        orf_indicator_input = sequences.orf_indicator(self._orfs, self.maxlen)
         return orf_indicator_input
 
     def get_protein_input(self):
@@ -80,20 +49,5 @@ class RNAsambaInput:
         return protein_input
 
     def get_aa_frequency_input(self):
-        aa_numeric = list(self._aa_dict.values())
-        aa_numeric.sort()
-        aa_frequency_input = []
-        for orf in self._orfs:
-            protein_seq = orf[2].lower()
-            protein_numeric = [self._aa_dict[aa] for aa in protein_seq]
-            aa_count = Counter(protein_numeric)
-            protein_len = max(len(protein_numeric), 1)
-            aa_frequency = []
-            for aa in aa_numeric:
-                if aa in aa_count:
-                    aa_frequency.append(aa_count[aa]/protein_len)
-                else:
-                    aa_frequency.append(0.)
-            aa_frequency_input.append(aa_frequency)
-        aa_frequency_input = np.stack(aa_frequency_input)
+        aa_frequency_input = sequences.aa_frequency(self._aa_dict, self._orfs)
         return aa_frequency_input

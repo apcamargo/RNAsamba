@@ -1,6 +1,11 @@
+import itertools
 import re
+from collections import Counter
 
+import numpy as np
 from Bio import Seq, SeqIO
+from keras.preprocessing.sequence import pad_sequences
+from keras.utils import to_categorical
 
 
 def read_fasta(filename, tokenize=False):
@@ -28,7 +33,7 @@ def tokenize_dna(seq):
     return token
 
 
-def get_longest_orf(input_seq):
+def longest_orf(input_seq):
     start_codon = re.compile('ATG')
     longest = (0, 0, '')
     for m in start_codon.finditer(input_seq):
@@ -43,6 +48,19 @@ def get_longest_orf(input_seq):
     return longest
 
 
+def orf_indicator(orfs, maxlen):
+    orf_indicator = []
+    for orf in orfs:
+        orf_vector = np.zeros(maxlen)
+        if orf[0] > 1:
+            orf_vector[orf[1]:orf[1]+orf[0]*3] = 1
+        orf_indicator.append(orf_vector)
+    orf_indicator = pad_sequences(orf_indicator, padding='post', maxlen=maxlen)
+    orf_indicator = to_categorical(orf_indicator, num_classes=2)
+    orf_indicator = np.stack(orf_indicator)
+    return orf_indicator
+
+
 def count_kmers(read, k):
     counts = {}
     num_kmers = len(read) - k + 1
@@ -52,3 +70,46 @@ def count_kmers(read, k):
             counts[kmer] = 0
         counts[kmer] += 1
     return counts
+
+
+def kmer_frequency(nucleotide_sequences):
+    kmer_frequency = []
+    bases = ['A', 'T', 'C', 'G']
+    kmer_lengths = [2, 3, 4]
+    for nucleotide_seq in nucleotide_sequences:
+        matches = [bases, bases]
+        sequence_kmer_frequency = []
+        for current_length in kmer_lengths:
+            current_seq = nucleotide_seq[0]
+            total_kmers = len(current_seq)-(current_length-1)
+            kmer_count = count_kmers(current_seq, current_length)
+            for match in itertools.product(*matches):
+                current_kmer = ''.join(match)
+                if current_kmer in kmer_count:
+                    sequence_kmer_frequency.append(kmer_count[current_kmer]/(total_kmers))
+                else:
+                    sequence_kmer_frequency.append(0)
+            matches.append(bases)
+        kmer_frequency.append(sequence_kmer_frequency)
+    kmer_frequency = np.stack(kmer_frequency)
+    return kmer_frequency
+
+
+def aa_frequency(aa_dict, orfs):
+    aa_numeric = list(aa_dict.values())
+    aa_numeric.sort()
+    aa_frequency = []
+    for orf in orfs:
+        protein_seq = orf[2].lower()
+        protein_numeric = [aa_dict[aa] for aa in protein_seq]
+        aa_count = Counter(protein_numeric)
+        protein_len = max(len(protein_numeric), 1)
+        freq = []
+        for aa in aa_numeric:
+            if aa in aa_count:
+                freq.append(aa_count[aa]/protein_len)
+            else:
+                freq.append(0.)
+        aa_frequency.append(freq)
+    aa_frequency = np.stack(aa_frequency)
+    return aa_frequency
