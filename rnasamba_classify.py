@@ -6,10 +6,12 @@ import sys
 from rnasamba import RNAsambaClassificationModel
 
 
-def main(output_file, fasta_file, weights, verbose):
+def main(output_file, fasta_file, weights, protein_fasta, verbose):
     """Classify sequences from a input FASTA file."""
     classification = RNAsambaClassificationModel(fasta_file, weights, verbose=verbose)
     classification.write_classification_output(output_file)
+    if protein_fasta:
+        classification.output_protein_fasta(protein_fasta)
 
 
 if __name__ == '__main__':
@@ -21,6 +23,8 @@ if __name__ == '__main__':
                         help='input FASTA file containing transcript sequences.')
     parser.add_argument('weights',
                         nargs='+', help='input HDF5 file(s) containing weights of a trained RNAsamba network (if more than a file is provided, an ensembling of the models will be performed).')
+    parser.add_argument('-p', '--protein_fasta',
+                        help='output FASTA file containing translated sequences for the predicted coding ORFs.')
     parser.add_argument('-v', '--verbose',
                         default=0, type=int, choices=[0, 1],
                         help='print the progress of the classification. 0 = silent, 1 = current step.')

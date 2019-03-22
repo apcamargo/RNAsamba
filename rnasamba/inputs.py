@@ -13,6 +13,7 @@ class RNAsambaInput:
             'y': 17
         }
         self._orfs = self.get_orfs()
+        self.protein_seqs = [orf[2] for orf in self._orfs]
         self.maxlen = maxlen
         self.protein_maxlen = int(maxlen/3)
         self.nucleotide_input = self.get_nucleotide_input()
@@ -41,8 +42,8 @@ class RNAsambaInput:
 
     def get_protein_input(self):
         protein_input = []
-        for orf in self._orfs:
-            protein_seq = orf[2].lower()
+        for protein_seq in self.protein_seqs:
+            protein_seq = protein_seq.lower()
             protein_numeric = [self._aa_dict[aa] for aa in protein_seq]
             protein_input.append(protein_numeric)
         protein_input = pad_sequences(protein_input, padding='post', maxlen=self.protein_maxlen)

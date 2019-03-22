@@ -25,6 +25,7 @@ class RNAsambaClassificationModel:
         self.maxlen = self.input.maxlen
         self.protein_maxlen = self.input.protein_maxlen
         self.sequence_name = self.input.sequence_name
+        self.protein_seqs = self.input.protein_seqs
         self.input_dict = {'nucleotide_layer': self.input.nucleotide_input,
                            'orf_indicator_layer': self.input.orf_indicator_input,
                            'kmer_frequency_layer': self.input.kmer_frequency_input,
@@ -37,6 +38,9 @@ class RNAsambaClassificationModel:
             model.load_weights(weights[0])
             logger.info('4. Classifying sequences.')
             self.predictions = model.predict(self.input_dict)
+            self.coding_score = self.predictions[:, 1]
+            self.classification_label = np.argmax(self.predictions, axis=1)
+            self.classification_label = ['coding' if i == 1 else 'noncoding' for i in self.classification_label]
         else:
             logger.info('2. Building the models.')
             n_models = len(weights)
@@ -47,20 +51,31 @@ class RNAsambaClassificationModel:
             logger.info('4. Classifying sequences using an ensemble of {} models.'.format(n_models))
             self.predictions = np.average([models[i].predict(self.input_dict)
                                            for i in range(n_models)], axis=0)
+            self.coding_score = self.predictions[:, 1]
+            self.classification_label = np.argmax(self.predictions, axis=1)
+            self.classification_label = ['coding' if i == 1 else 'noncoding' for i in self.classification_label]
 
     def write_classification_output(self, output_file):
-        coding_score = self.predictions[:, 1]
-        classification_label = np.argmax(self.predictions, axis=1)
-        classification_label = ['coding' if i == 1 else 'noncoding' for i in classification_label]
         with open(output_file, 'w') as handle:
             handle.write('sequence_name\tcoding_score\tclassification\n')
-            for i in range(len(classification_label)):
+            for i in range(len(self.classification_label)):
                 handle.write(self.sequence_name[i])
                 handle.write('\t')
-                handle.write('{:.5f}'.format(coding_score[i]))
+                handle.write('{:.5f}'.format(self.coding_score[i]))
                 handle.write('\t')
-                handle.write(classification_label[i])
+                handle.write(self.classification_label[i])
                 handle.write('\n')
+
+    def output_protein_fasta(self, protein_fasta):
+        with open(protein_fasta, 'w') as handle:
+            for i in range(len(self.classification_label)):
+                if self.classification_label[i] == 'coding':
+                    if self.protein_seqs[i]:
+                        handle.write('>')
+                        handle.write(self.sequence_name[i])
+                        handle.write('\n')
+                        handle.write(self.protein_seqs[i])
+                        handle.write('\n')
 
 
 class RNAsambaTrainModel:
