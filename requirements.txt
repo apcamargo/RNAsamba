@@ -1,0 +1,4 @@
+biopython
+keras>=2.2.0
+numpy
+tensorflow>=1.10.0,<=2.0

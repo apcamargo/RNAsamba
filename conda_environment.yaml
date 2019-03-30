@@ -1,0 +1,12 @@
+name: rnasamba
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python
+  - biopython
+  - keras >=2.2.0
+  - numpy
+  - tensorflow >=1.10.0,<=2.0
