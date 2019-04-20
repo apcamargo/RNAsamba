@@ -30,6 +30,6 @@ if __name__ == '__main__':
                         help='print the progress of the classification. 0 = silent, 1 = current step.')
     if len(sys.argv) < 2:
         parser.print_help()
-        sys.exit(1)
+        sys.exit(0)
     args = parser.parse_args()
     main(**vars(args))
