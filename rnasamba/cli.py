@@ -33,9 +33,9 @@ def classify(output_file, fasta_file, weights, protein_fasta, verbose):
     if protein_fasta:
         classification.output_protein_fasta(protein_fasta)
 
-def train(output_file, coding_file, noncoding_file, early_stop, batch_size, epochs, verbose):
+def train(output_file, coding_file, noncoding_file, early_stopping, batch_size, epochs, verbose):
     """Train a classification model from training data and saves the weights into a HDF5 file."""
-    trained = RNAsambaTrainModel(coding_file, noncoding_file, early_stop=early_stop,
+    trained = RNAsambaTrainModel(coding_file, noncoding_file, early_stopping=early_stopping,
                                  batch_size=batch_size, epochs=epochs, verbose=verbose)
     trained.model.save_weights(output_file)
 
@@ -68,8 +68,8 @@ def train_cli():
                         help='input FASTA file containing sequences of protein-coding transcripts.')
     parser.add_argument('noncoding_file',
                         help='input FASTA file containing sequences of noncoding transcripts.')
-    parser.add_argument('-s', '--early_stop',
-                        default=0, type=int, help='number of epochs after lowest validation loss before stopping training (a fraction of 0.1 of the train set is set apart for validation and the model with the lowest validation loss will be saved).')
+    parser.add_argument('-s', '--early_stopping',
+                        default=0, type=int, help='number of epochs after lowest validation loss before stopping training (a fraction of 0.1 of the training set is set apart for validation and the model with the lowest validation loss will be saved).')
     parser.add_argument('-b', '--batch_size',
                         default=128, type=int, help='number of samples per gradient update.')
     parser.add_argument('-e', '--epochs',
