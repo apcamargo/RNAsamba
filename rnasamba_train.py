@@ -14,7 +14,7 @@ def main(output_file, coding_file, noncoding_file, early_stop, batch_size, epoch
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Classify sequences from a input FASTA file.',
+    parser = argparse.ArgumentParser(description='Train a new classification model.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('output_file',
                         help='output HDF5 file containing weights of the newly trained RNAsamba network.')
