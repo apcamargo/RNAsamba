@@ -7,6 +7,6 @@ channels:
 dependencies:
   - python
   - biopython
-  - keras >=2.2.0
+  - keras >=2.1.0
   - numpy
-  - tensorflow >=1.10.0,<=2.0
+  - tensorflow >=1.5,<2.0
