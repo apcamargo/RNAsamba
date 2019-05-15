@@ -11,7 +11,7 @@
 
 ## Overview
 
-RNAsamba is tool for computing the coding potential of RNA transcript sequences using a deep learning classification model. Details of the algorithm and benchmarks comparing RNAsamba to other tools can be found in our [paper](#citation).
+RNAsamba is a tool for computing the coding potential of RNA sequences using a neural network classification model. A description of the algorithm and benchmarks comparing RNAsamba to other tools can be found in our [artipapercle](#citation).
 
 ## Installation
 
@@ -29,7 +29,7 @@ $ conda install -c bioconda rnasamba
 
 ## Download the pre-trained model
 
-We provide a HDF5 file containing the weights of a model trained with human trancript sequences. This model achieves high classification performance even in distant species (see [reference](#citation)). You can download the file by executing the following command:
+We provide a HDF5 file containing the weights of a classification model trained with human trancript sequences. This model achieves high classification performance even in transcripts of distant species (see [reference](#citation)). You can download the file by executing the following command:
 
 ```
 $ curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/weights_master_model.hdf5
@@ -43,7 +43,7 @@ RNAsamba provides two commands: `rnasamba-train` and `rnasamba-classify`.
 
 ### `rnasamba-train`
 
-`rnasamba-train` is the command for training a new classification model from a training dataset and saving the network weights into an HDF5 file. The user can specify the batch size (`--batch_size`) and the number of training epochs (`--epochs`). The user can also choose to activate early stopping, which reduces the training time and can help avoiding overfitting.
+`rnasamba-train` is the command for training a new classification model from a training dataset and saving the network weights into an HDF5 file. The user can specify the batch size (`--batch_size`) and the number of training epochs (`--epochs`). The user can also choose to activate early stopping, which reduces training time and can help avoiding overfitting.
 
 ```
 usage: rnasamba-train [-h] [-s EARLY_STOPPING] [-b BATCH_SIZE] [-e EPOCHS]
@@ -79,7 +79,7 @@ optional arguments:
 
 ### `rnasamba-classify`
 
-`rnasamba-classify` is the command for computing the coding potential of the transcripts in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (`--protein_fasta`) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba will ensemble their predictions into a single output.
+`rnasamba-classify` is the command for computing the coding potential of transcripts contained in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (`--protein_fasta`) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba will ensemble their predictions into a single output.
 
 ```
 usage: rnasamba-classify [-h] [-p PROTEIN_FASTA] [-v {0,1}]
