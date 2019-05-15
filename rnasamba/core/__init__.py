@@ -17,5 +17,3 @@
 #   along with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 #   Contact: antoniop.camargo@gmail.com
-
-from rnasamba.core.model import RNAsambaClassificationModel, RNAsambaTrainModel
