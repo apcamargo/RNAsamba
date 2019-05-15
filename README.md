@@ -79,7 +79,7 @@ optional arguments:
 
 ### `rnasamba-classify`
 
-`rnasamba-classify` is the command for computing the coding potential of the transcripts in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (`--protein_fasta`) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba emsemble their predictions into a single output.
+`rnasamba-classify` is the command for computing the coding potential of the transcripts in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (`--protein_fasta`) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba will ensemble their predictions into a single output.
 
 ```
 usage: rnasamba-classify [-h] [-p PROTEIN_FASTA] [-v {0,1}]
