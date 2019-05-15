@@ -29,7 +29,7 @@ setup(
     description='A tool for computing the coding potential of RNA transcript sequences using deep learning.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    install_requires=['biopython', 'numpy', 'keras >= 2.1.0', 'tensorflow>=1.5.0,<=2.0'],
+    install_requires=['biopython', 'numpy', 'keras >= 2.1.0', 'tensorflow>=1.5.0,<2.0'],
     python_requires= '>=3',
     entry_points = {
         'console_scripts': [
