@@ -15,16 +15,18 @@ RNAsamba is a tool for computing the coding potential of RNA sequences using a n
 
 ## Installation
 
-1. Using pip:
+There are two ways to install RNAsamba:
+
+- Using pip:
 
 ```
-$ pip install rnasamba
+pip install rnasamba
 ```
 
-2. Using conda:
+- Using conda:
 
 ```
-$ conda install -c bioconda rnasamba
+conda install -c bioconda rnasamba
 ```
 
 ## Download the pre-trained model
@@ -32,7 +34,7 @@ $ conda install -c bioconda rnasamba
 We provide a HDF5 file containing the weights of a classification model trained with human trancript sequences. This model achieves high classification performance even in transcripts of distant species (see [reference](#citation)). You can download the file by executing the following command:
 
 ```
-$ curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/weights_master_model.hdf5
+curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/weights_master_model.hdf5
 ```
 
 In case you want to train your own model, you can follow the steps shown in the [Examples](#examples) section.
@@ -110,15 +112,15 @@ optional arguments:
 1. Training a new classification model using *Mus musculus* data downloaded from GENCODE:
 
 ```
-$ rnasamba-train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
+rnasamba-train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
 
 ```
 
 2. Classifying sequences using our pre-trained model (`weights_master_model.hdf5`) and saving the predicted proteins into a FASTA file:
 
 ```
-$ rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa weights_master_model.hdf5
-$ head classification.tsv
+rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa weights_master_model.hdf5
+head classification.tsv
 
 sequence_name	coding_score	classification
 ENSMUST00000054910	0.99022	coding
