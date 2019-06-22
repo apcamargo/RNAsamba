@@ -37,7 +37,7 @@ setup(
             'rnasamba-train=rnasamba.cli:train_cli'
             ],
     },
-    url='https://github.com/apcamargo/RNAsamba',
+    url='https://apcamargo.github.io/RNAsamba/',
     keywords=['bioinformatics', 'coding potential', 'transcriptomics', 'machine learning', 'neural networks'],
     author='Antonio Pedro Camargo, Vsevolod Sourkov',
     author_email='antoniop.camargo@gmail.com',
