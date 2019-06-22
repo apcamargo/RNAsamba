@@ -109,13 +109,13 @@ optional arguments:
 
 ## Examples
 
-1. Training a new classification model using *Mus musculus* data downloaded from GENCODE:
+- Training a new classification model using *Mus musculus* data downloaded from GENCODE:
 
 ```
 rnasamba-train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
 ```
 
-2. Classifying sequences using our pre-trained model (`weights_master_model.hdf5`) and saving the predicted proteins into a FASTA file:
+- Classifying sequences using our pre-trained model (`weights_master_model.hdf5`) and saving the predicted proteins into a FASTA file:
 
 ```
 rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa weights_master_model.hdf5

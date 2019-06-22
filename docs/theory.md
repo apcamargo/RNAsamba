@@ -4,7 +4,7 @@
 
 ![](images/figure1.png)
 
-Traditionally, recurrent neural networks (RNNs) are the go-to models to create high level representations from sequence data. However, these networks don't perform well with long sequences and their training can be very slow. To achieve better classification performance and speed, RNAsamba uses the recently introduced IGLOO architecture[^1] looks at sequences as a whole, rather than sequentially like in the recurrent paradigm. To do so, IGLOO creates representations of sequences by taking patches of the feature space and multiplying them by learnable weights. By taking global snapshots of the sequence, IGLOO networks can be used to process very long sequences, making them particularly interesting for nucleotide sequence data.
+Traditionally, recurrent neural networks (RNNs) are the go-to models to create high level representations from sequence data. However, these networks don't perform well with long sequences and their training can be very slow. To achieve better classification performance and speed, RNAsamba uses the recently introduced IGLOO architecture[^1], which looks at sequences as a whole, rather than sequentially like in the recurrent paradigm. To do so, IGLOO creates representations of sequences by taking patches of the feature space and multiplying them by learnable weights. By taking global snapshots of the sequence, IGLOO networks can be used to process very long sequences, making them particularly interesting for nucleotide sequence data.
 
 ## Two branch structure
 
