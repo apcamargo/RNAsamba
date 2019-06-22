@@ -1,0 +1,20 @@
+.md-typeset {
+    font-size: .7rem
+}
+
+.md-typeset h1 {
+    font-size: 1.8rem
+}
+
+.md-typeset h3 {
+    font-size: .8rem;
+    font-weight: 700
+}
+
+.md-header[data-md-state=shadow] {
+    box-shadow: none
+}
+
+.md-content__inner {
+    margin: 0 4rem 3rem 4rem
+}

@@ -1,0 +1,39 @@
+site_name: 'RNAsamba Documentation'
+site_url: 'https://apcamargo.github.io/rnasamba/'
+site_description: 'Documentation for RNAsamba, a coding potential assessment tool'
+site_author: 'Antonio Camargo'
+
+repo_name: 'apcamargo/RNAsamba'
+repo_url: 'https://github.com/apcamargo/RNAsamba'
+
+nav:
+  - Home: 'index.md'
+  - Theory: 'theory.md'
+  - Usage: 'usage.md'
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'Red'
+    accent: 'Red'
+  font:
+    text: 'IBM Plex Sans'
+    code: 'Roboto Mono'
+  logo:
+    icon: 'book'
+
+markdown_extensions:
+  - 'admonition'
+  - 'footnotes'
+  - 'codehilite'
+
+plugins:
+  - 'search'
+
+extra_css:
+  - 'extra.css'
+
+extra:
+  social:
+    - type: 'github-alt'
+      link: 'https://github.com/apcamargo/'

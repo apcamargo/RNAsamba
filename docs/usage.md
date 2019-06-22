@@ -1,47 +1,19 @@
-# RNAsamba
-
-- [Overview](#overview)
-- [Installation](#installation)
-- [Download the pre-trained model](#download-the-pre-trained-model)
-- [Usage](#usage)
-  - [`rnasamba-train`](#rnasamba-train)
-  - [`rnasamba-classify`](#rnasamba-classify)
-- [Examples](#examples)
-- [Citation](#citation)
-
-## Overview
-
-RNAsamba is a tool for computing the coding potential of RNA sequences using a neural network classification model. A description of the algorithm and benchmarks comparing RNAsamba to other tools can be found in our [artipapercle](#citation).
-
-## Installation
-
-1. Using pip:
-
-```
-$ pip install rnasamba
-```
-
-2. Using conda:
-
-```
-$ conda install -c bioconda rnasamba
-```
+# Usage
 
 ## Download the pre-trained model
 
-We provide a HDF5 file containing the weights of a classification model trained with human trancript sequences. This model achieves high classification performance even in transcripts of distant species (see [reference](#citation)). You can download the file by executing the following command:
+We provide a HDF5 file containing the weights of a classification model trained with human trancript sequences. This model achieves high classification performance even in transcripts of distant species (see our [article](https://www.biorxiv.org/content/10.1101/620880v1)).
+
+!!! warning ""
+    In case you want to train your own model, you should follow the steps described in the [`rnasamba-train`](#rnasamba-train) section.
+
+You can download the weights file by executing the following command:
 
 ```
-$ curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/weights_master_model.hdf5
+curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/weights_master_model.hdf5
 ```
 
-In case you want to train your own model, you can follow the steps shown in the [Examples](#examples) section.
-
-## Usage
-
-RNAsamba provides two commands: `rnasamba-train` and `rnasamba-classify`.
-
-### `rnasamba-train`
+## `rnasamba-train`
 
 `rnasamba-train` is the command for training a new classification model from a training dataset and saving the network weights into an HDF5 file. The user can specify the batch size (`--batch_size`) and the number of training epochs (`--epochs`). The user can also choose to activate early stopping (`--early_stopping`), which reduces training time and can help avoiding overfitting.
 
@@ -77,7 +49,7 @@ optional arguments:
                         epoch. (default: 0)
 ```
 
-### `rnasamba-classify`
+## `rnasamba-classify`
 
 `rnasamba-classify` is the command for computing the coding potential of transcripts contained in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (`--protein_fasta`) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba will ensemble their predictions into a single output.
 
@@ -107,18 +79,21 @@ optional arguments:
 
 ## Examples
 
-1. Training a new classification model using *Mus musculus* data downloaded from GENCODE:
+- Training a new classification model using *Mus musculus* data downloaded from GENCODE:
 
 ```
-$ rnasamba-train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
+rnasamba-train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
 
 ```
 
-2. Classifying sequences using our pre-trained model (`weights_master_model.hdf5`) and saving the predicted proteins into a FASTA file:
+- Classifying sequences using our pre-trained model (`weights_master_model.hdf5`) and saving the predicted proteins into a FASTA file:
 
 ```
-$ rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa weights_master_model.hdf5
-$ head classification.tsv
+rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa weights_master_model.hdf5
+```
+
+```
+head classification.tsv
 
 sequence_name	coding_score	classification
 ENSMUST00000054910	0.99022	coding
@@ -131,7 +106,3 @@ ENSMUST00000061643	0.03456	noncoding
 ENSMUST00000059704	0.89232	coding
 ENSMUST00000036304	0.03782	noncoding
 ```
-
-## Citation
-
-> Camargo, Antonio P., Vsevolod Sourkov, and Marcelo F. Carazzolle. "RNAsamba: coding potential assessment using ORF and whole transcript sequence information." *BioRxiv* (2019).

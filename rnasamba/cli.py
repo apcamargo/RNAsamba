@@ -21,10 +21,7 @@
 import argparse
 import sys
 
-import tensorflow as tf
 from rnasamba import RNAsambaClassificationModel, RNAsambaTrainModel
-
-tf.logging.set_verbosity(tf.logging.ERROR)
 
 def classify(output_file, fasta_file, weights, protein_fasta, verbose):
     """Classify sequences from a input FASTA file."""
