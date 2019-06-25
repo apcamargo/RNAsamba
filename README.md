@@ -34,12 +34,17 @@ pip install rnasamba
 conda install -c bioconda rnasamba
 ```
 
-## Download the pre-trained model
+## Download the pre-trained models
 
-We provide a HDF5 file containing the weights of a classification model trained with human trancript sequences. This model achieves high classification performance even in transcripts of distant species (see [reference](#citation)). You can download the file by executing the following command:
+We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (`full_length_weights.hdf5`) was trained exclusively with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (`partial_length_weights.hdf5`) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using *de novo* approaches.
+
+Both models achieves high classification performance in transcripts from a variety of different species (see [reference](#citation)).
+
+You can download the files by executing the following commands:
 
 ```
-curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/weights_master_model.hdf5
+curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5
+curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial_length_weights.hdf5
 ```
 
 In case you want to train your own model, you can follow the steps shown in the [Examples](#examples) section.

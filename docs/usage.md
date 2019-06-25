@@ -1,17 +1,26 @@
 # Usage
 
-## Download the pre-trained model
+## Download the pre-trained models
 
-We provide a HDF5 file containing the weights of a classification model trained with human trancript sequences. This model achieves high classification performance even in transcripts of distant species (see our [article](https://www.biorxiv.org/content/10.1101/620880v1)).
+We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (`full_length_weights.hdf5`) was trained exclusively with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (`partial_length_weights.hdf5`) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using *de novo* approaches.
+
+<center>
+  <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5'" class="pure-material-button-contained">Full-length transcripts</button>
+  <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial_length_weights.hdf5'" class="pure-material-button-contained">Partial-length transcripts</button>
+</center>
+
+Alternatively, you can download the weight files in an command-line interface by executing the following commands:
+
+```
+curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5
+curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial_length_weights.hdf5
+```
+
+Both models achieves high classification performance in transcripts from a variety of different species (see our [article](https://www.biorxiv.org/content/10.1101/620880v1)).
 
 !!! warning ""
     In case you want to train your own model, you should follow the steps described in the [`rnasamba-train`](#rnasamba-train) section.
 
-You can download the weights file by executing the following command:
-
-```
-curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/weights_master_model.hdf5
-```
 
 ## `rnasamba-train`
 
@@ -86,10 +95,10 @@ rnasamba-train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21
 
 ```
 
-- Classifying sequences using our pre-trained model (`weights_master_model.hdf5`) and saving the predicted proteins into a FASTA file:
+- Classifying sequences using our pre-trained model (`full_length_weights.hdf5`) and saving the predicted proteins into a FASTA file:
 
 ```
-rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa weights_master_model.hdf5
+rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
 ```
 
 ```
