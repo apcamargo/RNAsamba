@@ -1,4 +1,4 @@
-# RNAsamba
+<p align="center"><img src="https://raw.githubusercontent.com/apcamargo/RNAsamba/master/logo.png" width="350rem"></p>
 
 ## Overview
 

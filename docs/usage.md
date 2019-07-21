@@ -1,4 +1,4 @@
-# Usage
+# Using RNAsamba
 
 ## Download the pre-trained models
 

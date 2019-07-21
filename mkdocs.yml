@@ -9,16 +9,16 @@ repo_url: 'https://github.com/apcamargo/RNAsamba'
 nav:
   - Home: 'index.md'
   - Theory: 'theory.md'
-  - Usage: 'usage.md'
+  - Using RNAsamba: 'usage.md'
 
 theme:
   name: 'material'
   palette:
-    primary: 'Red'
-    accent: 'Red'
+    primary: 'White'
+    accent: 'Green'
   font:
-    text: 'IBM Plex Sans'
-    code: 'Roboto Mono'
+    text: 'Lato'
+    code: 'Source Code Pro'
   logo:
     icon: 'book'
 
