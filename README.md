@@ -125,10 +125,10 @@ optional arguments:
 rnasamba-train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
 ```
 
-- Classifying sequences using our pre-trained model (`weights_master_model.hdf5`) and saving the predicted proteins into a FASTA file:
+- Classifying sequences using our pre-trained model (`full_length_weights.hdf5`) and saving the predicted proteins into a FASTA file:
 
 ```
-rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa weights_master_model.hdf5
+rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
 head classification.tsv
 
 sequence_name	coding_score	classification
