@@ -14,6 +14,10 @@
 
 RNAsamba is a tool for computing the coding potential of RNA sequences using a neural network classification model. A description of the algorithm and benchmarks comparing RNAsamba to other tools can be found in our [article](#citation).
 
+## Web version
+
+RNAsamba can be used through an online interface available at [https://rnasamba.lge.ibi.unicamp.br/](https://rnasamba.lge.ibi.unicamp.br/).
+
 ## Documentation
 
 A complete documentation for RNAsamba can be found at [https://apcamargo.github.io/RNAsamba/](https://apcamargo.github.io/RNAsamba/).
