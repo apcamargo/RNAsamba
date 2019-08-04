@@ -9,7 +9,7 @@ repo_url: 'https://github.com/apcamargo/RNAsamba'
 nav:
   - Home: 'index.md'
   - Theory: 'theory.md'
-  - Using RNAsamba: 'usage.md'
+  - Using RNAsamba locally: 'usage.md'
 
 theme:
   name: 'material'

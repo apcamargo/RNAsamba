@@ -3,11 +3,16 @@
 }
 
 .md-typeset h1 {
-    font-size: 1.8rem
+    font-size: 1.5rem
+}
+
+.md-typeset h2 {
+    font-size: .85rem;
+    font-weight: 700
 }
 
 .md-typeset h3 {
-    font-size: .8rem;
+    font-size: .7rem;
     font-weight: 700
 }
 

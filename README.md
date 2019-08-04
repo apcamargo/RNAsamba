@@ -16,7 +16,7 @@ RNAsamba is a tool for computing the coding potential of RNA sequences using a n
 
 ## Web version
 
-RNAsamba can be used through an online interface available at [https://rnasamba.lge.ibi.unicamp.br/](https://rnasamba.lge.ibi.unicamp.br/).
+RNAsamba can be used through a minimal web interface that is freely [available online](https://rnasamba.lge.ibi.unicamp.br/).
 
 ## Documentation
 

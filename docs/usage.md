@@ -1,4 +1,4 @@
-# Using RNAsamba
+# Using RNAsamba locally
 
 ## Download the pre-trained models
 
