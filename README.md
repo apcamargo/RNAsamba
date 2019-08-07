@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/apcamargo/RNAsamba/master/logo.png" width="350rem"></p>
+<p align="center"><a href="https://rnasamba.lge.ibi.unicamp.br/"><img src="https://raw.githubusercontent.com/apcamargo/RNAsamba/master/logo.png" width="350rem"></a></p>
 
 - [Overview](#overview)
 - [Documentation](#documentation)
