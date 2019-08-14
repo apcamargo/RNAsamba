@@ -149,4 +149,4 @@ ENSMUST00000036304	0.03782	noncoding
 
 ## Citation
 
-> Camargo, Antonio P., Vsevolod Sourkov, and Marcelo F. Carazzolle. "RNAsamba: coding potential assessment using ORF and whole transcript sequence information." *BioRxiv* (2019).
+> Camargo, Antonio P., Vsevolod Sourkov, and Marcelo F. Carazzolle. "[RNAsamba: coding potential assessment using ORF and whole transcript sequence information](https://www.biorxiv.org/content/10.1101/620880v1)" *BioRxiv* (2019).
