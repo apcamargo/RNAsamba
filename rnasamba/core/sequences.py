@@ -120,7 +120,7 @@ def aa_frequency(aa_dict, orfs):
     aa_numeric.sort()
     aa_frequency = []
     for orf in orfs:
-        protein_seq = orf[2].lower()
+        protein_seq = orf[2]
         protein_numeric = [aa_dict[aa] for aa in protein_seq]
         aa_count = Counter(protein_numeric)
         protein_len = max(len(protein_numeric), 1)

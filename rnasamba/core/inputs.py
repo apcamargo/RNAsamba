@@ -28,9 +28,9 @@ class RNAsambaInput:
         self._tokenized_sequences = sequences.read_fasta(fasta_file, tokenize=True)
         self._nucleotide_sequences = sequences.read_fasta(fasta_file, tokenize=False)
         self._aa_dict = {
-            'a': 4, 'c': 18, 'd': 12, 'e': 3, 'f': 14, 'g': 5, 'h': 16, 'i': 13, 'k': 9, 'l': 1,
-            'm': 19, 'n': 15, 'p': 6, 'q': 11, 'r': 8, 's': 2, 't': 10, 'v': 7, 'w': 20, 'x': 21,
-            'y': 17
+            'A': 4, 'C': 18, 'D': 12, 'E': 3, 'F': 14, 'G': 5, 'H': 16, 'I': 13, 'K': 9, 'L': 1,
+            'M': 19, 'N': 15, 'P': 6, 'Q': 11, 'R': 8, 'S': 2, 'T': 10, 'V': 7, 'W': 20, 'X': 21,
+            'Y': 17
         }
         self._orfs = self.get_orfs()
         self.protein_seqs = [orf[2] for orf in self._orfs]
@@ -63,7 +63,6 @@ class RNAsambaInput:
     def get_protein_input(self):
         protein_input = []
         for protein_seq in self.protein_seqs:
-            protein_seq = protein_seq.lower()
             protein_numeric = [self._aa_dict[aa] for aa in protein_seq]
             protein_input.append(protein_numeric)
         protein_input = pad_sequences(protein_input, padding='post', maxlen=self.protein_maxlen)
