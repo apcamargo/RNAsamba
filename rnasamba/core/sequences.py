@@ -38,7 +38,7 @@ def read_fasta(filename, tokenize=False):
                 seqs.append((tokenize_dna(sequence_str), sequence_name))
         else:
             for record in SeqIO.parse(handle, 'fasta'):
-                sequence_str = str(record.seq).upper()
+                sequence_str = str(record.seq).upper().replace('U', 'T')
                 sequence_name = record.description
                 seqs.append((sequence_str, sequence_name))
     return seqs
