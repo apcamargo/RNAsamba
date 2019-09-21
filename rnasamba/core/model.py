@@ -44,7 +44,7 @@ class RNAsambaClassificationModel:
         else:
             logging.basicConfig(level=logging.WARNING, format='%(message)s')
         logger = logging.getLogger()
-        logger.info('- Computing network inputs.')
+        logger.info('[1/4] Computing network inputs.')
         self.input = RNAsambaInput(fasta_file)
         self.maxlen = self.input.maxlen
         self.protein_maxlen = self.input.protein_maxlen
@@ -56,23 +56,23 @@ class RNAsambaClassificationModel:
                            'protein_layer': self.input.protein_input,
                            'aa_frequency_layer': self.input.aa_frequency_input}
         if len(weights) == 1:
-            logger.info('- Building the model.')
+            logger.info('[2/4] Building the model.')
             model = get_rnasamba_model(self.maxlen, self.protein_maxlen)
-            logger.info('- Loading network weights.')
+            logger.info('[3/4] Loading network weights.')
             model.load_weights(weights[0])
-            logger.info('- Classifying sequences.')
+            logger.info('[4/4] Classifying sequences.')
             self.predictions = model.predict(self.input_dict)
             self.coding_score = self.predictions[:, 1]
             self.classification_label = np.argmax(self.predictions, axis=1)
             self.classification_label = ['coding' if i == 1 else 'noncoding' for i in self.classification_label]
         else:
-            logger.info('- Building the models.')
+            logger.info('[2/4] Building the models.')
             n_models = len(weights)
             models = [get_rnasamba_model(self.maxlen, self.protein_maxlen) for i in range(n_models)]
-            logger.info('- Loading network weights.')
+            logger.info('[3/4] Loading network weights.')
             for i in range(n_models):
                 models[i].load_weights(weights[i])
-            logger.info('- Classifying sequences using an ensemble of {} models.'.format(n_models))
+            logger.info('[4/4] Classifying sequences using an ensemble of {} models.'.format(n_models))
             self.predictions = np.average([models[i].predict(self.input_dict)
                                            for i in range(n_models)], axis=0)
             self.coding_score = self.predictions[:, 1]
@@ -111,7 +111,7 @@ class RNAsambaTrainModel:
             verbose_keras = verbose
             logging.basicConfig(level=logging.WARNING, format='%(message)s')
         logger = logging.getLogger()
-        logger.info('- Computing network inputs.')
+        logger.info('[1/3] Computing network inputs.')
         self.coding_input = RNAsambaInput(coding_file)
         self.noncoding_input = RNAsambaInput(noncoding_file)
         self.maxlen = self.coding_input.maxlen
@@ -128,11 +128,11 @@ class RNAsambaTrainModel:
                 [self.coding_input.protein_input, self.noncoding_input.protein_input]),
             'aa_frequency_layer': np.concatenate(
                 [self.coding_input.aa_frequency_input, self.noncoding_input.aa_frequency_input])}
-        logger.info('- Building the model.')
+        logger.info('[2/3] Building the model.')
         self.model = get_rnasamba_model(self.maxlen, self.protein_maxlen)
-        logger.info('- Training the network.')
+        logger.info('[3/3] Training the network.')
         if early_stopping > 0:
-            logger.info('- Using early stopping. 10% of the training data will be set aside for validation.')
+            logger.info('      Using early stopping. 10% of the training data will be set aside for validation.')
             seed = np.random.randint(0, 50)
             np.random.seed(seed)
             np.random.shuffle(self.labels)
