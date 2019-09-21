@@ -23,22 +23,21 @@ import sys
 
 from rnasamba import RNAsambaClassificationModel, RNAsambaTrainModel
 
-def classify(output_file, fasta_file, weights, protein_fasta, verbose):
+def classify(args):
     """Classify sequences from a input FASTA file."""
-    classification = RNAsambaClassificationModel(fasta_file, weights, verbose=verbose)
-    classification.write_classification_output(output_file)
-    if protein_fasta:
-        classification.output_protein_fasta(protein_fasta)
+    classification = RNAsambaClassificationModel(args.fasta_file, args.weights, verbose=args.verbose)
+    classification.write_classification_output(args.output_file)
+    if args.protein_fasta:
+        classification.output_protein_fasta(args.protein_fasta)
 
-def train(output_file, coding_file, noncoding_file, early_stopping, batch_size, epochs, verbose):
+def train(args):
     """Train a classification model from training data and saves the weights into a HDF5 file."""
-    trained = RNAsambaTrainModel(coding_file, noncoding_file, early_stopping=early_stopping,
-                                 batch_size=batch_size, epochs=epochs, verbose=verbose)
-    trained.model.save_weights(output_file)
+    trained = RNAsambaTrainModel(args.coding_file, args.noncoding_file, early_stopping=args.early_stopping,
+                                 batch_size=args.batch_size, epochs=args.epochs, verbose=args.verbose)
+    trained.model.save_weights(args.output_file)
 
-def classify_cli():
-    parser = argparse.ArgumentParser(description='Classify sequences from a input FASTA file.',
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+def classify_cli(parser):
+    parser.set_defaults(func=classify)
     parser.add_argument('output_file',
                         help='output TSV file containing the results of the classification.')
     parser.add_argument('fasta_file',
@@ -50,15 +49,9 @@ def classify_cli():
     parser.add_argument('-v', '--verbose',
                         default=0, type=int, choices=[0, 1],
                         help='print the progress of the classification. 0 = silent, 1 = current step.')
-    if len(sys.argv) < 2:
-        parser.print_help()
-        sys.exit(0)
-    args = parser.parse_args()
-    classify(**vars(args))
 
-def train_cli():
-    parser = argparse.ArgumentParser(description='Train a new classification model.',
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+def train_cli(parser):
+    parser.set_defaults(func=train)
     parser.add_argument('output_file',
                         help='output HDF5 file containing weights of the newly trained RNAsamba network.')
     parser.add_argument('coding_file',
@@ -74,8 +67,42 @@ def train_cli():
     parser.add_argument('-v', '--verbose',
                         default=0, type=int, choices=[0, 1, 2, 3],
                         help='print the progress of the training. 0 = silent, 1 = current step, 2 = progress bar, 3 = one line per epoch.')
-    if len(sys.argv) < 2:
+
+def cli():
+    parser = argparse.ArgumentParser(description='Coding potential calculation using deep learning.',
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    subparsers = parser.add_subparsers()
+
+
+
+    classify_parser = subparsers.add_parser('classify', help='classify sequences from a input FASTA file.',
+                                            description='Classify sequences from a input FASTA file.',
+                                            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    classify_cli(classify_parser)
+
+
+
+    train_parser = subparsers.add_parser('train', help='train a new classification model.',
+                                         description='Train a new classification model.',
+                                         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    train_cli(train_parser)
+
+
+
+    if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(0)
+    elif len(sys.argv) == 2:
+        if sys.argv[1] == 'classify':
+            classify_parser.print_help()
+            sys.exit(0)
+        elif sys.argv[1] == 'train':
+            train_parser.print_help()
+            sys.exit(0)
+
+
     args = parser.parse_args()
-    train(**vars(args))
+
+    args.func(args)
+
+    #classify(**vars(args))

@@ -33,8 +33,7 @@ setup(
     python_requires= '>=3.6',
     entry_points = {
         'console_scripts': [
-            'rnasamba-classify=rnasamba.cli:classify_cli',
-            'rnasamba-train=rnasamba.cli:train_cli'
+            'rnasamba=rnasamba.cli:cli'
             ],
     },
     url='https://github.com/apcamargo/RNAsamba/',
