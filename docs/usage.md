@@ -19,15 +19,15 @@ curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial
 Both models achieves high classification performance in transcripts from a variety of different species (see our [article](https://www.biorxiv.org/content/10.1101/620880v1)).
 
 !!! warning ""
-    In case you want to train your own model, you should follow the steps described in the [`rnasamba-train`](#rnasamba-train) section.
+    In case you want to train your own model, you should follow the steps described in the [`rnasamba train`](#rnasamba-train) section.
 
 
-## `rnasamba-train`
+## `rnasamba train`
 
-`rnasamba-train` is the command for training a new classification model from a training dataset and saving the network weights into an HDF5 file. The user can specify the batch size (`--batch_size`) and the number of training epochs (`--epochs`). The user can also choose to activate early stopping (`--early_stopping`), which reduces training time and can help avoiding overfitting.
+`rnasamba train` is the command for training a new classification model from a training dataset and saving the network weights into an HDF5 file. The user can specify the batch size (`--batch_size`) and the number of training epochs (`--epochs`). The user can also choose to activate early stopping (`--early_stopping`), which reduces training time and can help avoiding overfitting.
 
 ```
-usage: rnasamba-train [-h] [-s EARLY_STOPPING] [-b BATCH_SIZE] [-e EPOCHS]
+usage: rnasamba train [-h] [-s EARLY_STOPPING] [-b BATCH_SIZE] [-e EPOCHS]
                       [-v {0,1,2,3}]
                       output_file coding_file noncoding_file
 
@@ -58,12 +58,12 @@ optional arguments:
                         epoch. (default: 0)
 ```
 
-## `rnasamba-classify`
+## `rnasamba classify`
 
-`rnasamba-classify` is the command for computing the coding potential of transcripts contained in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (`--protein_fasta`) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba will ensemble their predictions into a single output.
+`rnasamba classify` is the command for computing the coding potential of transcripts contained in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (`--protein_fasta`) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba will ensemble their predictions into a single output.
 
 ```
-usage: rnasamba-classify [-h] [-p PROTEIN_FASTA] [-v {0,1}]
+usage: rnasamba classify [-h] [-p PROTEIN_FASTA] [-v {0,1}]
                          output_file fasta_file weights [weights ...]
 
 Classify sequences from a input FASTA file.
@@ -91,14 +91,14 @@ optional arguments:
 - Training a new classification model using *Mus musculus* data downloaded from GENCODE:
 
 ```
-rnasamba-train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
+rnasamba train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
 
 ```
 
 - Classifying sequences using our pre-trained model (`full_length_weights.hdf5`) and saving the predicted proteins into a FASTA file:
 
 ```
-rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
+rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
 ```
 
 ```
