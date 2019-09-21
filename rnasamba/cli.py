@@ -72,23 +72,14 @@ def cli():
     parser = argparse.ArgumentParser(description='Coding potential calculation using deep learning.',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     subparsers = parser.add_subparsers()
-
-
-
     classify_parser = subparsers.add_parser('classify', help='classify sequences from a input FASTA file.',
                                             description='Classify sequences from a input FASTA file.',
                                             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     classify_cli(classify_parser)
-
-
-
     train_parser = subparsers.add_parser('train', help='train a new classification model.',
                                          description='Train a new classification model.',
                                          formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     train_cli(train_parser)
-
-
-
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(0)
@@ -99,10 +90,5 @@ def cli():
         elif sys.argv[1] == 'train':
             train_parser.print_help()
             sys.exit(0)
-
-
     args = parser.parse_args()
-
     args.func(args)
-
-    #classify(**vars(args))
