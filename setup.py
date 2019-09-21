@@ -19,7 +19,7 @@
 #
 #   Contact: antoniop.camargo@gmail.com
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
     name='rnasamba',
@@ -29,15 +29,22 @@ setup(
     description='A tool for computing the coding potential of RNA transcript sequences using deep learning.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    install_requires=['biopython', 'numpy<1.17', 'keras>=2.1.0', 'tensorflow>=1.5.0,<2.0'],
-    python_requires= '>=3.6',
-    entry_points = {
-        'console_scripts': [
-            'rnasamba=rnasamba.cli:cli'
-            ],
-    },
+    install_requires=[
+        'biopython',
+        'numpy<1.17',
+        'keras>=2.1.0',
+        'tensorflow>=1.5.0,<2.0',
+    ],
+    python_requires='>=3.6',
+    entry_points={'console_scripts': ['rnasamba=rnasamba.cli:cli']},
     url='https://github.com/apcamargo/RNAsamba/',
-    keywords=['bioinformatics', 'coding potential', 'transcriptomics', 'machine learning', 'neural networks'],
+    keywords=[
+        'bioinformatics',
+        'coding potential',
+        'transcriptomics',
+        'machine learning',
+        'neural networks',
+    ],
     author='Antonio Pedro Camargo, Vsevolod Sourkov',
     author_email='antoniop.camargo@gmail.com',
     classifiers=[
