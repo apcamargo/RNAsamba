@@ -29,7 +29,6 @@ from keras.layers import (Activation, Concatenate, Dense, Dropout, Embedding,
                           Input, Lambda)
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
-from tensorflow.python.util import deprecation
 
 from rnasamba.core.inputs import RNAsambaInput
 from rnasamba.core.miniigloo import IGLOO1D, RNAsambaAttention
