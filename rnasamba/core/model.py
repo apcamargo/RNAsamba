@@ -19,6 +19,7 @@
 #   Contact: antoniop.camargo@gmail.com
 
 import logging
+import os
 
 import numpy as np
 import tensorflow as tf
@@ -33,7 +34,9 @@ from tensorflow.python.util import deprecation
 from rnasamba.core.inputs import RNAsambaInput
 from rnasamba.core.miniigloo import IGLOO1D, RNAsambaAttention
 
-deprecation._PRINT_DEPRECATION_WARNINGS = False
+# Avoid excessive logging
+logging.getLogger('tensorflow').disabled = True
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 class RNAsambaClassificationModel:
     def __init__(self, fasta_file, weights, verbose=0):
