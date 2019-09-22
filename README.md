@@ -3,10 +3,10 @@
 - [Overview](#overview)
 - [Documentation](#documentation)
 - [Installation](#installation)
-- [Download the pre-trained model](#download-the-pre-trained-model)
+- [Download the pre-trained models](#download-the-pre-trained-models)
 - [Usage](#usage)
-  - [`rnasamba-train`](#rnasamba-train)
-  - [`rnasamba-classify`](#rnasamba-classify)
+  - [`rnasamba train`](#rnasamba-train)
+  - [`rnasamba classify`](#rnasamba-classify)
 - [Examples](#examples)
 - [Citation](#citation)
 
@@ -55,14 +55,14 @@ In case you want to train your own model, you can follow the steps shown in the 
 
 ## Usage
 
-RNAsamba provides two commands: `rnasamba-train` and `rnasamba-classify`.
+RNAsamba provides two commands: `rnasamba train` and `rnasamba classify`.
 
-### `rnasamba-train`
+### `rnasamba train`
 
-`rnasamba-train` is the command for training a new classification model from a training dataset and saving the network weights into an HDF5 file. The user can specify the batch size (`--batch_size`) and the number of training epochs (`--epochs`). The user can also choose to activate early stopping (`--early_stopping`), which reduces training time and can help avoiding overfitting.
+`rnasamba train` is the command for training a new classification model from a training dataset and saving the network weights into an HDF5 file. The user can specify the batch size (`--batch_size`) and the number of training epochs (`--epochs`). The user can also choose to activate early stopping (`--early_stopping`), which reduces training time and can help avoiding overfitting.
 
 ```
-usage: rnasamba-train [-h] [-s EARLY_STOPPING] [-b BATCH_SIZE] [-e EPOCHS]
+usage: rnasamba train [-h] [-s EARLY_STOPPING] [-b BATCH_SIZE] [-e EPOCHS]
                       [-v {0,1,2,3}]
                       output_file coding_file noncoding_file
 
@@ -93,12 +93,12 @@ optional arguments:
                         epoch. (default: 0)
 ```
 
-### `rnasamba-classify`
+### `rnasamba classify`
 
-`rnasamba-classify` is the command for computing the coding potential of transcripts contained in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (`--protein_fasta`) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba will ensemble their predictions into a single output.
+`rnasamba classify` is the command for computing the coding potential of transcripts contained in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (`--protein_fasta`) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba will ensemble their predictions into a single output.
 
 ```
-usage: rnasamba-classify [-h] [-p PROTEIN_FASTA] [-v {0,1}]
+usage: rnasamba classify [-h] [-p PROTEIN_FASTA] [-v {0,1}]
                          output_file fasta_file weights [weights ...]
 
 Classify sequences from a input FASTA file.
@@ -126,13 +126,13 @@ optional arguments:
 - Training a new classification model using *Mus musculus* data downloaded from GENCODE:
 
 ```
-rnasamba-train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
+rnasamba train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
 ```
 
 - Classifying sequences using our pre-trained model (`full_length_weights.hdf5`) and saving the predicted proteins into a FASTA file:
 
 ```
-rnasamba-classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
+rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
 head classification.tsv
 
 sequence_name	coding_score	classification

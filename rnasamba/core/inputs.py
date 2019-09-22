@@ -28,14 +28,32 @@ class RNAsambaInput:
         self._tokenized_sequences = sequences.read_fasta(fasta_file, tokenize=True)
         self._nucleotide_sequences = sequences.read_fasta(fasta_file, tokenize=False)
         self._aa_dict = {
-            'A': 4, 'C': 18, 'D': 12, 'E': 3, 'F': 14, 'G': 5, 'H': 16, 'I': 13, 'K': 9, 'L': 1,
-            'M': 19, 'N': 15, 'P': 6, 'Q': 11, 'R': 8, 'S': 2, 'T': 10, 'V': 7, 'W': 20, 'X': 21,
-            'Y': 17
+            'A': 4,
+            'C': 18,
+            'D': 12,
+            'E': 3,
+            'F': 14,
+            'G': 5,
+            'H': 16,
+            'I': 13,
+            'K': 9,
+            'L': 1,
+            'M': 19,
+            'N': 15,
+            'P': 6,
+            'Q': 11,
+            'R': 8,
+            'S': 2,
+            'T': 10,
+            'V': 7,
+            'W': 20,
+            'X': 21,
+            'Y': 17,
         }
         self._orfs = self.get_orfs()
         self.protein_seqs = [orf[2] for orf in self._orfs]
         self.maxlen = maxlen
-        self.protein_maxlen = int(maxlen/3)
+        self.protein_maxlen = int(maxlen / 3)
         self.nucleotide_input = self.get_nucleotide_input()
         self.kmer_frequency_input = self.get_kmer_frequency_input()
         self.orf_indicator_input = self.get_orf_indicator_input()
@@ -49,7 +67,9 @@ class RNAsambaInput:
 
     def get_nucleotide_input(self):
         nucleotide_input = [i[0] for i in self._tokenized_sequences]
-        nucleotide_input = pad_sequences(nucleotide_input, padding='post', maxlen=self.maxlen)
+        nucleotide_input = pad_sequences(
+            nucleotide_input, padding='post', maxlen=self.maxlen
+        )
         return nucleotide_input
 
     def get_kmer_frequency_input(self):
@@ -65,7 +85,9 @@ class RNAsambaInput:
         for protein_seq in self.protein_seqs:
             protein_numeric = [self._aa_dict[aa] for aa in protein_seq]
             protein_input.append(protein_numeric)
-        protein_input = pad_sequences(protein_input, padding='post', maxlen=self.protein_maxlen)
+        protein_input = pad_sequences(
+            protein_input, padding='post', maxlen=self.protein_maxlen
+        )
         return protein_input
 
     def get_aa_frequency_input(self):
