@@ -308,6 +308,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-the-docker-image" class="md-nav__link">
+    Using the Docker image
+  </a>
+  
+</li>
+      
       
       
       
@@ -367,6 +374,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-the-docker-image" class="md-nav__link">
+    Using the Docker image
+  </a>
+  
+</li>
+      
       
       
       
@@ -388,7 +402,7 @@
                 
                 <h1 id="using-rnasamba-locally">Using RNAsamba locally</h1>
 <h2 id="download-the-pre-trained-models">Download the pre-trained models</h2>
-<p>We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (<code>full_length_weights.hdf5</code>) was trained exclusively with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (<code>partial_length_weights.hdf5</code>) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using <em>de novo</em> approaches.</p>
+<p>We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (<code>full_length_weights.hdf5</code>) was trained exclusively with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (<code>partial_length_weights.hdf5</code>) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using <em>de novo</em> approaches. <strong>We generally recommend using <code>partial_length_weights.hdf5</code>.</strong></p>
 <p><center>
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5'" class="pure-material-button-contained">Full-length transcripts</button>
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial_length_weights.hdf5'" class="pure-material-button-contained">Partial-length transcripts</button>
@@ -467,14 +481,14 @@
 <ul>
 <li>Training a new classification model using <em>Mus musculus</em> data downloaded from GENCODE:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="n">rnasamba</span> <span class="n">train</span> <span class="n">mouse_model</span><span class="p">.</span><span class="n">hdf5</span> <span class="o">-</span><span class="n">v</span> <span class="mi">2</span> <span class="n">gencode</span><span class="p">.</span><span class="n">vM21</span><span class="p">.</span><span class="n">pc_transcripts</span><span class="p">.</span><span class="n">fa</span> <span class="n">gencode</span><span class="p">.</span><span class="n">vM21</span><span class="p">.</span><span class="n">lncRNA_transcripts</span><span class="p">.</span><span class="n">fa</span>
+<div class="codehilite"><pre><span></span><span class="n">rnasamba</span> <span class="n">train</span> <span class="o">-</span><span class="n">v</span> <span class="mi">2</span> <span class="n">mouse_model</span><span class="p">.</span><span class="n">hdf5</span> <span class="n">gencode</span><span class="p">.</span><span class="n">vM21</span><span class="p">.</span><span class="n">pc_transcripts</span><span class="p">.</span><span class="n">fa</span> <span class="n">gencode</span><span class="p">.</span><span class="n">vM21</span><span class="p">.</span><span class="n">lncRNA_transcripts</span><span class="p">.</span><span class="n">fa</span>
 </pre></div>
 
 
 <ul>
-<li>Classifying sequences using our pre-trained model (<code>full_length_weights.hdf5</code>) and saving the predicted proteins into a FASTA file:</li>
+<li>Classifying sequences using our pre-trained model (<code>partial_length_weights.hdf5</code>) and saving the predicted proteins into a FASTA file:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="n">rnasamba</span> <span class="n">classify</span> <span class="o">-</span><span class="n">p</span> <span class="n">predicted_proteins</span><span class="p">.</span><span class="n">fa</span> <span class="n">classification</span><span class="p">.</span><span class="n">tsv</span> <span class="k">input</span><span class="p">.</span><span class="n">fa</span> <span class="n">full_length_weights</span><span class="p">.</span><span class="n">hdf5</span>
+<div class="codehilite"><pre><span></span><span class="n">rnasamba</span> <span class="n">classify</span> <span class="o">-</span><span class="n">p</span> <span class="n">predicted_proteins</span><span class="p">.</span><span class="n">fa</span> <span class="n">classification</span><span class="p">.</span><span class="n">tsv</span> <span class="k">input</span><span class="p">.</span><span class="n">fa</span> <span class="n">partial_length_weights</span><span class="p">.</span><span class="n">hdf5</span>
 </pre></div>
 
 
@@ -490,6 +504,17 @@
 <span class="n">ENSMUST00000061643</span>  <span class="mi">0</span><span class="p">.</span><span class="mi">03456</span> <span class="n">noncoding</span>
 <span class="n">ENSMUST00000059704</span>  <span class="mi">0</span><span class="p">.</span><span class="mi">89232</span> <span class="n">coding</span>
 <span class="n">ENSMUST00000036304</span>  <span class="mi">0</span><span class="p">.</span><span class="mi">03782</span> <span class="n">noncoding</span>
+</pre></div>
+
+
+<h2 id="using-the-docker-image">Using the Docker image</h2>
+<div class="codehilite"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">antoniopcamargo</span><span class="o">/</span><span class="n">rnasamba</span>
+
+<span class="o">#</span> <span class="n">Training</span> <span class="n">example</span><span class="p">:</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="c1">--rm -v &quot;$(pwd):/app&quot; antoniopcamargo/rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa</span>
+
+<span class="o">#</span> <span class="n">Classification</span> <span class="n">example</span><span class="p">:</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="c1">--rm -v &quot;$(pwd):/app&quot; antoniopcamargo/rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5</span>
 </pre></div>
                 
                   
