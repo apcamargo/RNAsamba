@@ -28,7 +28,10 @@ pip install rnasamba
 conda install -c bioconda rnasamba
 ```
 
-!!! warning ""
+!!! info "Using RNAsamba with Docker"
+    We provide a Docker image for RNAsamba. You can check how to use it in the [usage documentation](usage.md#using-the-docker-image).
+
+!!! info "Using RNAsamba with a GPU"
     If you want to use RNAsamba with a GPU, you first need to install `tensorflow-gpu>=1.5.0,<2.0`, `keras>=2.1.0`, `numpy` and `bioconda` with pip and then proceed to install `rnasamba` using the `--no-deps` argument.
 
 ## Citation

@@ -8,6 +8,7 @@
   - [`rnasamba train`](#rnasamba-train)
   - [`rnasamba classify`](#rnasamba-classify)
 - [Examples](#examples)
+- [Using the Docker image](#using-the-docker-image)
 - [Citation](#citation)
 
 ## Overview
@@ -126,13 +127,13 @@ optional arguments:
 - Training a new classification model using *Mus musculus* data downloaded from GENCODE:
 
 ```
-rnasamba train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
+rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
 ```
 
-- Classifying sequences using our pre-trained model (`full_length_weights.hdf5`) and saving the predicted proteins into a FASTA file:
+- Classifying sequences using our pre-trained model (`partial_length_weights.hdf5`) and saving the predicted proteins into a FASTA file:
 
 ```
-rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
+rnasamba classify -p predicted_proteins.fa classification.tsv input.fa partial_length_weights.hdf5
 head classification.tsv
 
 sequence_name	coding_score	classification
@@ -145,6 +146,18 @@ ENSMUST00000008011	0.14949	noncoding
 ENSMUST00000061643	0.03456	noncoding
 ENSMUST00000059704	0.89232	coding
 ENSMUST00000036304	0.03782	noncoding
+```
+
+## Using the Docker image
+
+```
+docker pull antoniopcamargo/rnasamba
+
+# Training example:
+docker run -ti --rm -v "$(pwd):/app" antoniopcamargo/rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
+
+# Classification example:
+docker run -ti --rm -v "$(pwd):/app" antoniopcamargo/rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
 ```
 
 ## Citation

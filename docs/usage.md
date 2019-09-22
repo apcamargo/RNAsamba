@@ -2,7 +2,7 @@
 
 ## Download the pre-trained models
 
-We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (`full_length_weights.hdf5`) was trained exclusively with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (`partial_length_weights.hdf5`) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using *de novo* approaches.
+We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (`full_length_weights.hdf5`) was trained exclusively with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (`partial_length_weights.hdf5`) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using *de novo* approaches. **We generally recommend using `partial_length_weights.hdf5`.**
 
 <center>
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5'" class="pure-material-button-contained">Full-length transcripts</button>
@@ -91,14 +91,14 @@ optional arguments:
 - Training a new classification model using *Mus musculus* data downloaded from GENCODE:
 
 ```
-rnasamba train mouse_model.hdf5 -v 2 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
+rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
 
 ```
 
-- Classifying sequences using our pre-trained model (`full_length_weights.hdf5`) and saving the predicted proteins into a FASTA file:
+- Classifying sequences using our pre-trained model (`partial_length_weights.hdf5`) and saving the predicted proteins into a FASTA file:
 
 ```
-rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
+rnasamba classify -p predicted_proteins.fa classification.tsv input.fa partial_length_weights.hdf5
 ```
 
 ```
@@ -114,4 +114,16 @@ ENSMUST00000008011	0.14949	noncoding
 ENSMUST00000061643	0.03456	noncoding
 ENSMUST00000059704	0.89232	coding
 ENSMUST00000036304	0.03782	noncoding
+```
+
+## Using the Docker image
+
+```
+docker pull antoniopcamargo/rnasamba
+
+# Training example:
+docker run -ti --rm -v "$(pwd):/app" antoniopcamargo/rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
+
+# Classification example:
+docker run -ti --rm -v "$(pwd):/app" antoniopcamargo/rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
 ```
