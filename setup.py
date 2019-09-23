@@ -31,7 +31,7 @@ setup(
     long_description_content_type='text/markdown',
     install_requires=[
         'biopython',
-        'numpy<1.17',
+        'numpy<=1.16.5',
         'keras>=2.1.0',
         'tensorflow>=1.5.0,<2.0',
     ],
