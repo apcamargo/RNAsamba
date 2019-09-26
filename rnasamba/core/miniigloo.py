@@ -132,7 +132,7 @@ def IGLOO(
     x = SpatialDropout1D(dropout)(x)
     x = MaxPooling1D(pool_size=max_pooling_kernel, strides=None, padding='valid')(x)
     layers.append(
-        PatchyLayerCNNTopLast(
+        CoreIGLOOLayer(
             patch_size, nb_patches, dropout, build_backbone=build_backbone, l2reg=l2reg
         )(x)
     )
@@ -149,7 +149,7 @@ def IGLOO(
             x = LeakyReLU(alpha=0.1)(x)
             x = SpatialDropout1D(dropout)(x)
             layers.append(
-                PatchyLayerCNNTopLast(
+                CoreIGLOOLayer(
                     patch_size,
                     nb_patches,
                     dropout,
@@ -164,7 +164,7 @@ def IGLOO(
     return mpi
 
 
-class PatchyLayerCNNTopLast(Layer):
+class CoreIGLOOLayer(Layer):
     def __init__(
         self,
         patch_size,
@@ -186,7 +186,7 @@ class PatchyLayerCNNTopLast(Layer):
         self.l2reg = l2reg
         self.outsize = 100
         self.build_backbone = build_backbone
-        super(PatchyLayerCNNTopLast, self).__init__(**kwargs)
+        super(CoreIGLOOLayer, self).__init__(**kwargs)
 
     def compute_mask(self, input, input_mask=None):
         if input_mask is not None:
@@ -194,8 +194,8 @@ class PatchyLayerCNNTopLast(Layer):
         else:
             return None
 
-    def PatchyLayerCNNTopLast_initializer(self, shape, dtype=None):
-        m = gen_filters_igloo_newstyle1Donly(
+    def core_igloo_layer_initializer(self, shape, dtype=None):
+        m = allocate_filters(
             self.patch_size,
             self.nb_patches,
             self.vector_size,
@@ -216,7 +216,7 @@ class PatchyLayerCNNTopLast(Layer):
         )
         self.patches = self.add_weight(
             shape=(int(self.nb_patches), self.patch_size, 1),
-            initializer=self.PatchyLayerCNNTopLast_initializer,
+            initializer=self.core_igloo_layer_initializer,
             trainable=False,
             name='random_patches',
             dtype=np.int32,
@@ -235,7 +235,7 @@ class PatchyLayerCNNTopLast(Layer):
             regularizer=l2(self.l2reg),
             name='w_bias',
         )
-        super(PatchyLayerCNNTopLast, self).build(input_shape)
+        super(CoreIGLOOLayer, self).build(input_shape)
 
     def call(self, y, mask=None):
         y = tf.transpose(y, [1, 2, 0])
@@ -252,7 +252,7 @@ class PatchyLayerCNNTopLast(Layer):
         return input_shape[0], self.nb_patches
 
 
-def gen_filters_igloo_newstyle1Donly(
+def allocate_filters(
     patch_size,
     nb_patches,
     vector_size,
