@@ -23,7 +23,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='rnasamba',
-    version='0.1.5',
+    version='0.1.6',
     packages=find_packages(),
     license='GNU General Public License v3.0',
     description='A tool for computing the coding potential of RNA transcript sequences using deep learning.',
