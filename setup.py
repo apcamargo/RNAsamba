@@ -32,7 +32,7 @@ setup(
     install_requires=[
         'biopython',
         'numpy<=1.16.5',
-        'keras>=2.1.0',
+        'keras>=2.1.0,<2.3.0',
         'tensorflow>=1.5.0,<2.0',
     ],
     python_requires='>=3.6',
