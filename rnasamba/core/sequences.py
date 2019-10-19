@@ -26,6 +26,7 @@ import numpy as np
 from Bio import Seq, SeqIO
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
+from ..rnasamba import count_kmers
 
 
 def read_fasta(filename, tokenize=False):
@@ -77,17 +78,6 @@ def orf_indicator(orfs, maxlen):
     orf_indicator = to_categorical(orf_indicator, num_classes=2)
     orf_indicator = np.stack(orf_indicator)
     return orf_indicator
-
-
-def count_kmers(read, k):
-    counts = {}
-    num_kmers = len(read) - k + 1
-    for i in range(num_kmers):
-        kmer = read[i : i + k]
-        if kmer not in counts:
-            counts[kmer] = 0
-        counts[kmer] += 1
-    return counts
 
 
 def kmer_frequency(nucleotide_sequences):

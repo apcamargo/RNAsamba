@@ -18,4 +18,4 @@
 #
 #   Contact: antoniop.camargo@gmail.com
 
-from rnasamba.core.model import RNAsambaClassificationModel, RNAsambaTrainModel
+from .core.model import RNAsambaClassificationModel, RNAsambaTrainModel
