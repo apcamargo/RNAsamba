@@ -26,7 +26,8 @@ import numpy as np
 from Bio import Seq, SeqIO
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
-from ..rnasamba import count_kmers
+
+from rnasamba.core.kmer import count_kmers
 
 
 def read_fasta(filename, tokenize=False):

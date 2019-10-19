@@ -15,7 +15,7 @@ fn count_kmers(sequence: &str, k: usize) -> PyResult<HashMap<&str, u16>> {
 }
 
 #[pymodule]
-fn rnasamba(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
+fn kmer(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(count_kmers))?;
     Ok(())
 }
