@@ -81,10 +81,9 @@ def orf_indicator(orfs, maxlen):
     return orf_indicator
 
 
-def kmer_frequency(sequence_tuple):
+def kmer_frequency(sequence_tuple, kmer_lengths=[2, 3, 4]):
     kmer_frequency = []
     bases = ['A', 'T', 'C', 'G']
-    kmer_lengths = [2, 3, 4]
     for nucleotide_seq in sequence_tuple:
         matches = [bases, bases]
         sequence_kmer_frequency = []
