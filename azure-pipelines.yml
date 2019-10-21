@@ -1,6 +1,6 @@
 variables:
   CIBW_BUILD: cp36-* cp37-*
-  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y ; export PATH="$HOME/.cargo/bin:$PATH" ; setuptools setuptools-rust"
+  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y ; export PATH=\"$HOME/.cargo/bin:$PATH\" ; setuptools setuptools-rust"
 
 jobs:
 - job: linux
