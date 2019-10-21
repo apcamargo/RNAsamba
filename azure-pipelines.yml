@@ -1,5 +1,6 @@
 variables:
   CIBW_BUILD: cp36-* cp37-*
+  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y ; export PATH="$HOME/.cargo/bin:$PATH" ; setuptools setuptools-rust"
 
 jobs:
 - job: linux
@@ -7,11 +8,8 @@ jobs:
   steps: 
     - task: UsePythonVersion@0
     - bash: |
-        set -ex
-        curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
-        export PATH="$HOME/.cargo/bin:$PATH"
         python -m pip install --upgrade pip
-        pip install cibuildwheel==0.12.0 setuptools setuptools-rust
+        pip install cibuildwheel==0.12.0
         cibuildwheel --output-dir wheelhouse .
     - task: PublishBuildArtifacts@1
       inputs: {pathtoPublish: 'wheelhouse'}
@@ -20,11 +18,8 @@ jobs:
   steps: 
     - task: UsePythonVersion@0
     - bash: |
-        set -ex
-        curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
-        export PATH="$HOME/.cargo/bin:$PATH"
         python -m pip install --upgrade pip
-        pip install cibuildwheel==0.12.0 setuptools setuptools-rust
+        pip install cibuildwheel==0.12.0
         cibuildwheel --output-dir wheelhouse .
     - task: PublishBuildArtifacts@1
       inputs: {pathtoPublish: 'wheelhouse'}
