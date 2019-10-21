@@ -1,0 +1,27 @@
+variables:
+  CIBW_BUILD: cp36-* cp37-*
+  CIBW_SKIP: "*_i686"
+  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y ; pip install -U setuptools setuptools-rust"
+  CIBW_ENVIRONMENT: PATH="$HOME/.cargo/bin:$PATH"
+
+jobs:
+- job: linux
+  pool: {vmImage: 'Ubuntu-16.04'}
+  steps: 
+    - task: UsePythonVersion@0
+    - bash: |
+        python -m pip install --upgrade pip
+        pip install cibuildwheel==0.12.0
+        cibuildwheel --output-dir wheelhouse .
+    - task: PublishBuildArtifacts@1
+      inputs: {pathtoPublish: 'wheelhouse'}
+- job: macos
+  pool: {vmImage: 'macOS-10.13'}
+  steps: 
+    - task: UsePythonVersion@0
+    - bash: |
+        python -m pip install --upgrade pip
+        pip install cibuildwheel==0.12.0
+        cibuildwheel --output-dir wheelhouse .
+    - task: PublishBuildArtifacts@1
+      inputs: {pathtoPublish: 'wheelhouse'}
