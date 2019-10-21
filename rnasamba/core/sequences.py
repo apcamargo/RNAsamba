@@ -27,6 +27,8 @@ from Bio import Seq, SeqIO
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 
+from rnasamba.core.kmer import count_kmers
+
 
 def read_fasta(filename, tokenize=False):
     seqs = []
@@ -44,20 +46,20 @@ def read_fasta(filename, tokenize=False):
     return seqs
 
 
-def tokenize_dna(seq):
+def tokenize_dna(sequence):
     lookup = dict(zip('NATCG', range(5)))
-    if not seq:
+    if not sequence:
         token = [0]
     else:
-        token = [lookup[c] for c in seq if c in lookup]
+        token = [lookup[c] for c in sequence if c in lookup]
     return token
 
 
-def longest_orf(input_seq):
+def longest_orf(sequence):
     start_codon = re.compile('ATG')
     longest = (0, 0, '')
-    for m in start_codon.finditer(input_seq):
-        putative_orf = input_seq[m.start() :]
+    for m in start_codon.finditer(sequence):
+        putative_orf = sequence[m.start() :]
         # Add trailing Ns to make the sequence length a multiple of three:
         putative_orf = putative_orf + 'N' * (3 - len(putative_orf) % 3)
         protein = Seq.Seq(putative_orf).translate(to_stop=True)
@@ -79,22 +81,10 @@ def orf_indicator(orfs, maxlen):
     return orf_indicator
 
 
-def count_kmers(read, k):
-    counts = {}
-    num_kmers = len(read) - k + 1
-    for i in range(num_kmers):
-        kmer = read[i : i + k]
-        if kmer not in counts:
-            counts[kmer] = 0
-        counts[kmer] += 1
-    return counts
-
-
-def kmer_frequency(nucleotide_sequences):
+def kmer_frequency(sequence_tuple, kmer_lengths=[2, 3, 4]):
     kmer_frequency = []
     bases = ['A', 'T', 'C', 'G']
-    kmer_lengths = [2, 3, 4]
-    for nucleotide_seq in nucleotide_sequences:
+    for nucleotide_seq in sequence_tuple:
         matches = [bases, bases]
         sequence_kmer_frequency = []
         for current_length in kmer_lengths:

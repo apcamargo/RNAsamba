@@ -20,11 +20,14 @@
 #   Contact: antoniop.camargo@gmail.com
 
 from setuptools import find_packages, setup
+from setuptools_rust import RustExtension
 
 setup(
     name='rnasamba',
-    version='0.1.6',
+    version='0.2.0',
     packages=find_packages(),
+    rust_extensions=[RustExtension('rnasamba.core.kmer', debug=False)],
+    zip_safe=False,
     license='GNU General Public License v3.0',
     description='A tool for computing the coding potential of RNA transcript sequences using deep learning.',
     long_description=open('README.md').read(),
@@ -45,7 +48,7 @@ setup(
         'machine learning',
         'neural networks',
     ],
-    author='Antonio Pedro Camargo, Vsevolod Sourkov',
+    author='Antonio Camargo, Vsevolod Sourkov',
     author_email='antoniop.camargo@gmail.com',
     classifiers=[
         'Development Status :: 3 - Alpha',

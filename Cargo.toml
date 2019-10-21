@@ -1,0 +1,13 @@
+[package]
+name = "rnasamba"
+version = "0.2.0"
+authors = ["Antonio Camargo <antoniop.camargo@gmail.com>"]
+edition = "2018"
+
+[lib]
+name = "rnasamba"
+crate-type = ["cdylib"]
+
+[dependencies.pyo3]
+version = "0.8.1"
+features = ["extension-module"]
