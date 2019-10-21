@@ -3,9 +3,9 @@ LABEL maintainer="antoniop.camargo@gmail.com"
 
 RUN pip install --no-cache-dir \
     'biopython==1.74' \
-    'keras==2.3.0' \
+    'keras==2.2.5' \
     'numpy==1.16.5' \
-    'rnasamba==0.1.6' \
+    'rnasamba==0.2.0' \
     'tensorflow==1.14.0'
 
 VOLUME ["/app"]
