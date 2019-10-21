@@ -48,6 +48,7 @@ def train(args):
 
 
 def classify_cli(parser):
+    parser.add_argument('--version', action='version', version='%(prog)s 0.2.0')
     parser.set_defaults(func=classify)
     parser.add_argument(
         'output_file',
@@ -78,6 +79,7 @@ def classify_cli(parser):
 
 def train_cli(parser):
     parser.set_defaults(func=train)
+    parser.add_argument('--version', action='version', version='%(prog)s 0.2.0')
     parser.add_argument(
         'output_file',
         help='output HDF5 file containing weights of the newly trained RNAsamba network.',
@@ -126,6 +128,7 @@ def cli():
         description='Coding potential calculation using deep learning.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+    parser.add_argument('--version', action='version', version='%(prog)s 0.2.0')
     subparsers = parser.add_subparsers()
     classify_parser = subparsers.add_parser(
         'classify',
