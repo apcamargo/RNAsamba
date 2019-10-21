@@ -1,6 +1,6 @@
 variables:
   CIBW_BUILD: cp36-* cp37-*
-  CIBW_SKIP: *-manylinux_i686
+  CIBW_SKIP: "*-manylinux_i686"
   CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y ; pip install -U setuptools setuptools-rust"
   CIBW_ENVIRONMENT: PATH="$HOME/.cargo/bin:$PATH"
 
