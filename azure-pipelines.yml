@@ -1,3 +1,8 @@
+trigger:
+  branches:
+    include:
+      refs/tags/*
+
 variables:
   CIBW_BUILD: cp36-* cp37-*
   CIBW_SKIP: "*_i686"
