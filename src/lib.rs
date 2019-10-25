@@ -1,7 +1,6 @@
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 use std::collections::HashMap;
-use std::str;
 
 #[pyfunction]
 fn count_kmers(sequence: &str, k: usize) -> PyResult<HashMap<&str, u16>> {
