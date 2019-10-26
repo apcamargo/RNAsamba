@@ -79,6 +79,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --version             show program's version number and exit
   -s EARLY_STOPPING, --early_stopping EARLY_STOPPING
                         number of epochs after lowest validation loss before
                         stopping training (a fraction of 0.1 of the training
@@ -114,6 +115,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --version             show program's version number and exit
   -p PROTEIN_FASTA, --protein_fasta PROTEIN_FASTA
                         output FASTA file containing translated sequences for
                         the predicted coding ORFs. (default: None)
