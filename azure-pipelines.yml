@@ -4,9 +4,9 @@ trigger:
       refs/tags/*
 
 variables:
-  CIBW_BUILD: cp36-* cp37-*
+  CIBW_BUILD: cp36-* cp37-* cp38-*
   CIBW_SKIP: "*_i686"
-  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y ; pip install -U setuptools setuptools-rust"
+  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly --profile=minimal -y ; pip install -U setuptools setuptools-rust"
   CIBW_ENVIRONMENT: PATH="$HOME/.cargo/bin:$PATH"
 
 jobs:
@@ -16,17 +16,18 @@ jobs:
     - task: UsePythonVersion@0
     - bash: |
         python -m pip install --upgrade pip
-        pip install cibuildwheel==0.12.0
-        cibuildwheel --output-dir wheelhouse .
+        pip install cibuildwheel==1.0.0
+        python setup.py sdist
+        cibuildwheel --output-dir sdist .
     - task: PublishBuildArtifacts@1
-      inputs: {pathtoPublish: 'wheelhouse'}
+      inputs: {pathtoPublish: 'sdist'}
 - job: macos
   pool: {vmImage: 'macOS-10.13'}
   steps: 
     - task: UsePythonVersion@0
     - bash: |
         python -m pip install --upgrade pip
-        pip install cibuildwheel==0.12.0
-        cibuildwheel --output-dir wheelhouse .
+        pip install cibuildwheel==1.0.0
+        cibuildwheel --output-dir sdist .
     - task: PublishBuildArtifacts@1
-      inputs: {pathtoPublish: 'wheelhouse'}
+      inputs: {pathtoPublish: 'sdist'}
