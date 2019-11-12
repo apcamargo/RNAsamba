@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      refs/tags/*
+      - refs/tags/*
 
 variables:
   CIBW_BUILD: cp36-* cp37-* cp38-*
