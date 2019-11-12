@@ -18,7 +18,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install cibuildwheel==1.0.0
         cibuildwheel --output-dir wheelhouse .
-        python setup.py sdist -d wheelhouse
     - task: PublishBuildArtifacts@1
       inputs: {pathtoPublish: 'wheelhouse'}
 - job: macos
