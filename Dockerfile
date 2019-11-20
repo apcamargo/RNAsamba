@@ -5,7 +5,7 @@ RUN pip install --no-cache-dir \
     'biopython==1.74' \
     'keras==2.2.5' \
     'numpy==1.16.5' \
-    'rnasamba==0.2.0' \
+    'rnasamba==0.2.1' \
     'tensorflow==1.14.0'
 
 VOLUME ["/app"]

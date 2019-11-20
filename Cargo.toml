@@ -1,12 +1,18 @@
 [package]
 name = "rnasamba"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Antonio Camargo <antoniop.camargo@gmail.com>"]
 edition = "2018"
 
 [lib]
 name = "rnasamba"
 crate-type = ["cdylib"]
+
+[dependencies]
+itertools = "0.8.1"
+ndarray = "0.13.0"
+numpy = "0.7.0"
+rayon = "1.2.0"
 
 [dependencies.pyo3]
 version = "0.8.1"

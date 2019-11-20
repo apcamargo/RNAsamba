@@ -223,11 +223,9 @@ def get_rnasamba_model(maxlen, protein_maxlen):
     aa_frequency_layer = Input(name='aa_frequency_layer', shape=(21,))
 
     # Nucleotide branch (first branch):
-    emb_mat_nuc = np.random.normal(0, 1, (5, 4))
+    emb_mat_nuc = np.zeros((5, 4))
     for i in range(1, 5):
-        vector = np.zeros(4)
-        vector[i - 1] = 1
-        emb_mat_nuc[i] = vector
+        emb_mat_nuc[i, i - 1] = 1
     embedding_layer_nucleotide = Embedding(
         input_dim=emb_mat_nuc.shape[0],
         output_dim=4,
@@ -284,12 +282,9 @@ def get_rnasamba_model(maxlen, protein_maxlen):
     orf_length_branch = Lambda(lambda d: tf.tile(d, [1, 64]))(orf_length_branch)
 
     # Protein branch:
-    emb_mat_prot = np.random.random((22, 21))
-    emb_mat_prot[0] = np.zeros(21)
+    emb_mat_prot = np.zeros((22, 21))
     for i in range(1, 22):
-        vector = np.zeros(21)
-        vector[i - 1] = 1
-        emb_mat_prot[i] = vector
+        emb_mat_prot[i, i - 1] = 1
     embedding_layer_protein = Embedding(
         input_dim=emb_mat_prot.shape[0],
         output_dim=21,

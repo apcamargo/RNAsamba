@@ -27,8 +27,6 @@ from Bio import Seq, SeqIO
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 
-from rnasamba.core.kmer import count_kmers
-
 
 def read_fasta(filename, tokenize=False):
     seqs = []
@@ -79,30 +77,6 @@ def orf_indicator(orfs, maxlen):
     orf_indicator = to_categorical(orf_indicator, num_classes=2)
     orf_indicator = np.stack(orf_indicator)
     return orf_indicator
-
-
-def kmer_frequency(sequence_tuple, kmer_lengths=[2, 3, 4]):
-    kmer_frequency = []
-    bases = ['A', 'T', 'C', 'G']
-    for nucleotide_seq in sequence_tuple:
-        matches = [bases, bases]
-        sequence_kmer_frequency = []
-        for current_length in kmer_lengths:
-            current_seq = nucleotide_seq[0]
-            total_kmers = len(current_seq) - (current_length - 1)
-            kmer_count = count_kmers(current_seq, current_length)
-            for match in itertools.product(*matches):
-                current_kmer = ''.join(match)
-                if current_kmer in kmer_count:
-                    sequence_kmer_frequency.append(
-                        kmer_count[current_kmer] / (total_kmers)
-                    )
-                else:
-                    sequence_kmer_frequency.append(0)
-            matches.append(bases)
-        kmer_frequency.append(sequence_kmer_frequency)
-    kmer_frequency = np.stack(kmer_frequency)
-    return kmer_frequency
 
 
 def aa_frequency(aa_dict, orfs):

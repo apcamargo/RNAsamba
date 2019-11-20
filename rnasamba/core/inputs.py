@@ -20,7 +20,7 @@
 
 from keras.preprocessing.sequence import pad_sequences
 
-from rnasamba.core import sequences
+from rnasamba.core import sequences, kmer
 
 
 class RNAsambaInput:
@@ -73,7 +73,7 @@ class RNAsambaInput:
         return nucleotide_input
 
     def get_kmer_frequency_input(self):
-        kmer_frequency_input = sequences.kmer_frequency(self._nucleotide_sequences)
+        kmer_frequency_input = kmer.kmer_frequencies_array(self._nucleotide_sequences)
         return kmer_frequency_input
 
     def get_orf_indicator_input(self):
