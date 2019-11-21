@@ -19,8 +19,7 @@
 #   Contact: antoniop.camargo@gmail.com
 
 from keras.preprocessing.sequence import pad_sequences
-
-from rnasamba.core import sequences, kmer
+from rnasamba.core import kmer, orf, sequences
 
 
 class RNAsambaInput:
@@ -62,7 +61,7 @@ class RNAsambaInput:
         self.sequence_name = [seq[1] for seq in self._nucleotide_sequences]
 
     def get_orfs(self):
-        orfs = [sequences.longest_orf(seq[0]) for seq in self._nucleotide_sequences]
+        orfs = orf.longest_orf_array(self._nucleotide_sequences)
         return orfs
 
     def get_nucleotide_input(self):

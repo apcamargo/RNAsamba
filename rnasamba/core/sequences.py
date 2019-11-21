@@ -18,12 +18,10 @@
 #
 #   Contact: antoniop.camargo@gmail.com
 
-import itertools
-import re
 from collections import Counter
 
 import numpy as np
-from Bio import Seq, SeqIO
+from Bio import SeqIO
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 
@@ -51,19 +49,6 @@ def tokenize_dna(sequence):
     else:
         token = [lookup[c] for c in sequence if c in lookup]
     return token
-
-
-def longest_orf(sequence):
-    start_codon = re.compile('ATG')
-    longest = (0, 0, '')
-    for m in start_codon.finditer(sequence):
-        putative_orf = sequence[m.start() :]
-        # Add trailing Ns to make the sequence length a multiple of three:
-        putative_orf = putative_orf + 'N' * (3 - len(putative_orf) % 3)
-        protein = Seq.Seq(putative_orf).translate(to_stop=True)
-        if len(protein) > longest[0]:
-            longest = (len(protein), m.start(), str(protein))
-    return longest
 
 
 def orf_indicator(orfs, maxlen):
