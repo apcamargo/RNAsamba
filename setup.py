@@ -24,9 +24,12 @@ from setuptools_rust import RustExtension
 
 setup(
     name='rnasamba',
-    version='0.2.1',
+    version='0.2.2',
     packages=find_packages(),
-    rust_extensions=[RustExtension('rnasamba.core.kmer', debug=False)],
+    rust_extensions=[
+        RustExtension('rnasamba.core.kmer', debug=False),
+        RustExtension('rnasamba.core.orf', debug=False),
+    ],
     zip_safe=False,
     license='GNU General Public License v3.0',
     description='A tool for computing the coding potential of RNA transcript sequences using deep learning.',
