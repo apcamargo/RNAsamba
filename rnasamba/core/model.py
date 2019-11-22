@@ -48,7 +48,7 @@ class RNAsambaClassificationModel:
         self.input = RNAsambaInput(fasta_file)
         self.maxlen = self.input.maxlen
         self.protein_maxlen = self.input.protein_maxlen
-        self.sequence_name = self.input.sequence_name
+        self.seqs_names = self.input.seqs_names
         self.protein_seqs = self.input.protein_seqs
         self.input_dict = {
             'nucleotide_layer': self.input.nucleotide_input,
@@ -97,7 +97,7 @@ class RNAsambaClassificationModel:
         with open(output_file, 'w') as handle:
             handle.write('sequence_name\tcoding_score\tclassification\n')
             for i in range(len(self.classification_label)):
-                handle.write(self.sequence_name[i])
+                handle.write(self.seqs_names[i])
                 handle.write('\t')
                 handle.write('{:.5f}'.format(self.coding_score[i]))
                 handle.write('\t')
@@ -110,7 +110,7 @@ class RNAsambaClassificationModel:
                 if self.classification_label[i] == 'coding':
                     if self.protein_seqs[i]:
                         handle.write('>')
-                        handle.write(self.sequence_name[i])
+                        handle.write(self.seqs_names[i])
                         handle.write('\n')
                         handle.write(self.protein_seqs[i])
                         handle.write('\n')
@@ -140,10 +140,7 @@ class RNAsambaTrainModel:
         self.protein_maxlen = self.coding_input.protein_maxlen
         self.labels = np.repeat(
             [[0, 1], [1, 0]],
-            [
-                len(self.coding_input.sequence_name),
-                len(self.noncoding_input.sequence_name),
-            ],
+            [len(self.coding_input.seqs_names), len(self.noncoding_input.seqs_names)],
             axis=0,
         )
         self.input_dict = {

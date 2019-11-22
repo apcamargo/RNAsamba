@@ -24,8 +24,9 @@ from rnasamba.core import kmer, orf, sequences
 
 class RNAsambaInput:
     def __init__(self, fasta_file, maxlen=3000):
-        self._tokenized_sequences = sequences.read_fasta(fasta_file, tokenize=True)
-        self._nucleotide_sequences = sequences.read_fasta(fasta_file, tokenize=False)
+        self._nucleotide_seqs, self._token_seqs, self.seqs_names = sequences.read_fasta(
+            fasta_file
+        )
         self._aa_dict = {
             'A': 4,
             'C': 18,
@@ -58,21 +59,19 @@ class RNAsambaInput:
         self.orf_indicator_input = self.get_orf_indicator_input()
         self.protein_input = self.get_protein_input()
         self.aa_frequency_input = self.get_aa_frequency_input()
-        self.sequence_name = [seq[1] for seq in self._nucleotide_sequences]
 
     def get_orfs(self):
-        orfs = orf.longest_orf_array(self._nucleotide_sequences)
+        orfs = orf.longest_orf_array(self._nucleotide_seqs)
         return orfs
 
     def get_nucleotide_input(self):
-        nucleotide_input = [i[0] for i in self._tokenized_sequences]
         nucleotide_input = pad_sequences(
-            nucleotide_input, padding='post', maxlen=self.maxlen
+            self._token_seqs, padding='post', maxlen=self.maxlen
         )
         return nucleotide_input
 
     def get_kmer_frequency_input(self):
-        kmer_frequency_input = kmer.kmer_frequencies_array(self._nucleotide_sequences)
+        kmer_frequency_input = kmer.kmer_frequencies_array(self._nucleotide_seqs)
         return kmer_frequency_input
 
     def get_orf_indicator_input(self):

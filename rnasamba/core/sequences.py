@@ -26,24 +26,22 @@ from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 
 
-def read_fasta(filename, tokenize=False):
+def read_fasta(filename):
     seqs = []
+    seqs_tokenized = []
+    seqs_names = []
     with open(filename) as handle:
-        if tokenize:
-            for record in SeqIO.parse(handle, 'fasta'):
-                sequence_str = str(record.seq).upper().replace('U', 'T')
-                sequence_name = record.description
-                seqs.append((tokenize_dna(sequence_str), sequence_name))
-        else:
-            for record in SeqIO.parse(handle, 'fasta'):
-                sequence_str = str(record.seq).upper().replace('U', 'T')
-                sequence_name = record.description
-                seqs.append((sequence_str, sequence_name))
-    return seqs
+        for record in SeqIO.parse(handle, 'fasta'):
+            sequence_str = str(record.seq).upper().replace('U', 'T')
+            sequence_name = record.description
+            seqs.append(sequence_str)
+            seqs_tokenized.append(tokenize_dna(sequence_str))
+            seqs_names.append(sequence_name)
+    return seqs, seqs_tokenized, seqs_names
 
 
 def tokenize_dna(sequence):
-    lookup = dict(zip('NATCG', range(5)))
+    lookup = {'N': 0, 'A': 1, 'T': 2, 'C': 3, 'G': 4}
     if not sequence:
         token = [0]
     else:
@@ -65,8 +63,7 @@ def orf_indicator(orfs, maxlen):
 
 
 def aa_frequency(aa_dict, orfs):
-    aa_numeric = list(aa_dict.values())
-    aa_numeric.sort()
+    aa_numeric = list(range(1, 22))
     aa_frequency = []
     for orf in orfs:
         protein_seq = orf[2]

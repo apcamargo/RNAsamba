@@ -24,7 +24,7 @@ from setuptools_rust import RustExtension
 
 setup(
     name='rnasamba',
-    version='0.2.2',
+    version='0.2.3',
     packages=find_packages(),
     rust_extensions=[
         RustExtension('rnasamba.core.kmer', debug=False),

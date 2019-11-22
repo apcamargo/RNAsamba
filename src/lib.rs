@@ -81,10 +81,10 @@ fn sequence_longest_orf(sequence: &str) -> (usize, usize, String) {
 }
 
 #[pyfunction]
-fn longest_orf_array(sequences: Vec<(&str, &str)>) -> PyResult<Vec<(usize, usize, String)>> {
+fn longest_orf_array(sequences: Vec<&str>) -> PyResult<Vec<(usize, usize, String)>> {
     Ok(sequences
         .par_iter()
-        .map(|sequence| sequence_longest_orf(sequence.0))
+        .map(|sequence| sequence_longest_orf(sequence))
         .collect())
 }
 
@@ -136,12 +136,12 @@ fn sequence_kmer_frequencies(sequence: &str) -> Vec<f32> {
 }
 
 #[pyfunction]
-fn kmer_frequencies_array(sequences: Vec<(&str, &str)>) -> Py<PyArray2<f32>> {
+fn kmer_frequencies_array(sequences: Vec<&str>) -> Py<PyArray2<f32>> {
     Array2::from_shape_vec(
         (sequences.len(), 336),
         sequences
             .par_iter()
-            .map(|sequence| sequence_kmer_frequencies(sequence.0))
+            .map(|sequence| sequence_kmer_frequencies(sequence))
             .flatten()
             .collect(),
     )
