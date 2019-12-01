@@ -6,13 +6,13 @@ trigger:
 variables:
   CIBW_BUILD: cp36-* cp37-* cp38-*
   CIBW_SKIP: "*_i686"
-  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2019-09-26 --profile=minimal -y ; pip install -U setuptools setuptools-rust"
+  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly --profile=minimal -y ; pip install -U setuptools setuptools-rust"
   CIBW_ENVIRONMENT: PATH="$HOME/.cargo/bin:$PATH"
 
 jobs:
 - job: linux
   pool: {vmImage: 'Ubuntu-16.04'}
-  steps: 
+  steps:
     - task: UsePythonVersion@0
     - bash: |
         python -m pip install --upgrade pip
@@ -22,7 +22,7 @@ jobs:
       inputs: {pathtoPublish: 'wheelhouse'}
 - job: macos
   pool: {vmImage: 'macOS-10.13'}
-  steps: 
+  steps:
     - task: UsePythonVersion@0
     - bash: |
         python -m pip install --upgrade pip
