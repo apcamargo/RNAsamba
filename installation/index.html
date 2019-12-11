@@ -13,7 +13,7 @@
         <meta name="description" content="Documentation for RNAsamba, a coding potential assessment tool">
       
       
-        <link rel="canonical" href="https://apcamargo.github.io/RNAsamba/theory/">
+        <link rel="canonical" href="https://apcamargo.github.io/RNAsamba/installation/">
       
       
         <meta name="author" content="Antonio Camargo">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Theory - RNAsamba documentation</title>
+        <title>Installation - RNAsamba documentation</title>
       
     
     
@@ -93,7 +93,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#theory" tabindex="1" class="md-skip">
+      <a href="#installation" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -119,7 +119,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Theory
+                Installation
               
             </span>
           
@@ -240,18 +240,6 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../installation/" title="Installation" class="md-nav__link">
-      Installation
-    </a>
-  </li>
-
-    
-      
-      
-      
-
   
 
 
@@ -263,11 +251,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Theory
+        Installation
       </label>
     
-    <a href="./" title="Theory" class="md-nav__link md-nav__link--active">
-      Theory
+    <a href="./" title="Installation" class="md-nav__link md-nav__link--active">
+      Installation
     </a>
     
       
@@ -281,15 +269,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#igloo-sequence-representations" class="md-nav__link">
-    IGLOO sequence representations
+  <a href="#installation-methods" class="md-nav__link">
+    Installation methods
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#two-branch-structure" class="md-nav__link">
-    Two branch structure
+  <a href="#docker" class="md-nav__link">
+    Docker
   </a>
   
 </li>
@@ -302,6 +290,18 @@
   
 </nav>
     
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../theory/" title="Theory" class="md-nav__link">
+      Theory
+    </a>
   </li>
 
     
@@ -338,15 +338,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#igloo-sequence-representations" class="md-nav__link">
-    IGLOO sequence representations
+  <a href="#installation-methods" class="md-nav__link">
+    Installation methods
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#two-branch-structure" class="md-nav__link">
-    Two branch structure
+  <a href="#docker" class="md-nav__link">
+    Docker
   </a>
   
 </li>
@@ -367,25 +367,32 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/apcamargo/RNAsamba/edit/master/docs/theory.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/apcamargo/RNAsamba/edit/master/docs/installation.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="theory">Theory</h1>
-<h2 id="igloo-sequence-representations">IGLOO sequence representations</h2>
-<p><img alt="" src="../images/figure1.png" /></p>
-<p>Traditionally, recurrent neural networks (RNNs) are the go-to models to create high level representations from sequence data. However, these networks don't perform well with long sequences and their training can be very slow. To achieve better classification performance and speed, RNAsamba uses the recently introduced IGLOO architecture<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, which looks at sequences as a whole, rather than sequentially like in the recurrent paradigm. To do so, IGLOO creates representations of sequences by taking patches of the feature space and multiplying them by learnable weights. By taking global snapshots of the sequence, IGLOO networks can be used to process very long sequences, making them particularly interesting for nucleotide sequence data.</p>
-<h2 id="two-branch-structure">Two branch structure</h2>
-<p><img alt="" src="../images/figure2.png" /></p>
-<p>Starting from the initial nucleotide sequence, RNAsamba computes the coding potential of a given transcript by combining information coming from two different sources: the Whole Sequence Branch (B<sub>1</sub>) and the Longest ORF Branch (B<sub>2</sub>). B<sub>1</sub> contains whole sequence representations of the transcript and can capture protein-coding signatures irrespective of the identification of the ORF. In contrast, B<sub>2</sub> carries information extracted from the longest identified ORF and the putative protein translated from it. By taking into account these two sources of sequence information, RNAsamba builds a thorough model of the transcript, improving the classification performance of the algorithm.</p>
-<p>For a more detailed description of RNAsamba's algorithm, please check our <a href="https://www.biorxiv.org/content/10.1101/620880v1">article</a>.</p>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>Sourkov, Vsevolod. "IGLOO: Slicing the Features Space to Represent Long Sequences." <em>arXiv</em> (2018).&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
+                <h1 id="installation">Installation</h1>
+<h2 id="installation-methods">Installation methods</h2>
+<p>There are two methods to install RNAsamba in your computer:</p>
+<ul>
+<li>Using pip:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">rnasamba</span>
+</pre></div>
+
+
+<ul>
+<li>Using conda:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="k">c</span> <span class="n">bioconda</span> <span class="n">rnasamba</span>
+</pre></div>
+
+
+<div class="admonition info">
+<p class="admonition-title">Using RNAsamba with a GPU</p>
+<p>If you want to use RNAsamba with a GPU, you first need to install <code>tensorflow-gpu&gt;=1.5.0,&lt;2.0</code>, <code>keras&gt;=2.1.0,&lt;2.3.0</code>, <code>numpy&lt;=1.16.5</code> and <code>biopython</code> with pip and then proceed to install <code>rnasamba</code> using the <code>--no-deps</code> argument.</p>
 </div>
+<h2 id="docker">Docker</h2>
+<p>We provide a Docker image for RNAsamba. You can check how to use it in the <a href="../usage/#using-the-docker-image">usage documentation</a>.</p>
                 
                   
                 
@@ -406,7 +413,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../installation/" title="Installation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href=".." title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -415,19 +422,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Installation
+                Home
               </span>
             </div>
           </a>
         
         
-          <a href="../usage/" title="Using RNAsamba locally" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../theory/" title="Theory" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Using RNAsamba locally
+                Theory
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

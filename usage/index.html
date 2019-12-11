@@ -38,11 +38,11 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
     
     
       
-        <title>Using RNAsamba locally - RNAsamba Documentation</title>
+        <title>Using RNAsamba locally - RNAsamba documentation</title>
       
     
     
@@ -102,7 +102,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://apcamargo.github.io/RNAsamba/" title="RNAsamba Documentation" class="md-header-nav__button md-logo">
+        <a href="https://apcamargo.github.io/RNAsamba/" title="RNAsamba documentation" class="md-header-nav__button md-logo">
           
             <i class="md-icon">book</i>
           
@@ -115,7 +115,7 @@
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
             <span class="md-header-nav__topic">
-              RNAsamba Documentation
+              RNAsamba documentation
             </span>
             <span class="md-header-nav__topic">
               
@@ -194,12 +194,12 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://apcamargo.github.io/RNAsamba/" title="RNAsamba Documentation" class="md-nav__button md-logo">
+    <a href="https://apcamargo.github.io/RNAsamba/" title="RNAsamba documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">book</i>
       
     </a>
-    RNAsamba Documentation
+    RNAsamba documentation
   </label>
   
     <div class="md-nav__source">
@@ -232,6 +232,18 @@
   <li class="md-nav__item">
     <a href=".." title="Home" class="md-nav__link">
       Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../installation/" title="Installation" class="md-nav__link">
+      Installation
     </a>
   </li>
 
@@ -402,7 +414,11 @@
                 
                 <h1 id="using-rnasamba-locally">Using RNAsamba locally</h1>
 <h2 id="download-the-pre-trained-models">Download the pre-trained models</h2>
-<p>We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (<code>full_length_weights.hdf5</code>) was trained exclusively with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (<code>partial_length_weights.hdf5</code>) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using <em>de novo</em> approaches. <strong>We generally recommend using <code>partial_length_weights.hdf5</code>.</strong></p>
+<div class="admonition question">
+<p class="admonition-title">What is a weights file?</p>
+<p>When a neural network classification model is trained the information it learns is numerically encoded in its weights. In order to use RNAsamba to classify your own sequences, you need to load weights obtained in a previous training iteration.</p>
+</div>
+<p>We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (<code>full_length_weights.hdf5</code>) was trained with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (<code>partial_length_weights.hdf5</code>) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using <em>de novo</em> approaches. Both models achieve high classification performance in transcripts from a variety of different species (see our <a href="https://www.biorxiv.org/content/10.1101/620880v1">article</a>). <strong>For most cases, we recommend using <code>partial_length_weights.hdf5</code>.</strong></p>
 <p><center>
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5'" class="pure-material-button-contained">Full-length transcripts</button>
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial_length_weights.hdf5'" class="pure-material-button-contained">Partial-length transcripts</button>
@@ -413,10 +429,7 @@
 </pre></div>
 
 
-<p>Both models achieves high classification performance in transcripts from a variety of different species (see our <a href="https://www.biorxiv.org/content/10.1101/620880v1">article</a>).</p>
-<div class="admonition warning">
 <p>In case you want to train your own model, you should follow the steps described in the <a href="#rnasamba-train"><code>rnasamba train</code></a> section.</p>
-</div>
 <h2 id="rnasamba-train"><code>rnasamba train</code></h2>
 <p><code>rnasamba train</code> is the command for training a new classification model from a training dataset and saving the network weights into an HDF5 file. The user can specify the batch size (<code>--batch_size</code>) and the number of training epochs (<code>--epochs</code>). The user can also choose to activate early stopping (<code>--early_stopping</code>), which reduces training time and can help avoiding overfitting.</p>
 <div class="codehilite"><pre><span></span><span class="nv">usage</span>: <span class="nv">rnasamba</span> <span class="nv">train</span> [<span class="o">-</span><span class="nv">h</span>] [<span class="o">-</span><span class="nv">s</span> <span class="nv">EARLY_STOPPING</span>] [<span class="o">-</span><span class="nv">b</span> <span class="nv">BATCH_SIZE</span>] [<span class="o">-</span><span class="nv">e</span> <span class="nv">EPOCHS</span>]
@@ -580,7 +593,7 @@
       
     </div>
     
-      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../assets/javascripts/application.c648116f.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
