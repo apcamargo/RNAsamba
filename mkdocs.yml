@@ -1,4 +1,4 @@
-site_name: 'RNAsamba Documentation'
+site_name: 'RNAsamba documentation'
 site_url: 'https://apcamargo.github.io/RNAsamba/'
 site_description: 'Documentation for RNAsamba, a coding potential assessment tool'
 site_author: 'Antonio Camargo'
@@ -8,6 +8,7 @@ repo_url: 'https://github.com/apcamargo/RNAsamba'
 
 nav:
   - Home: 'index.md'
+  - Installation: 'installation.md'
   - Theory: 'theory.md'
   - Using RNAsamba locally: 'usage.md'
 

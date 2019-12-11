@@ -2,7 +2,10 @@
 
 ## Download the pre-trained models
 
-We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (`full_length_weights.hdf5`) was trained exclusively with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (`partial_length_weights.hdf5`) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using *de novo* approaches. **We generally recommend using `partial_length_weights.hdf5`.**
+!!! question "What is a weights file?"
+    When a neural network classification model is trained the information it learns is numerically encoded in its weights. In order to use RNAsamba to classify your own sequences, you need to load weights obtained in a previous training iteration.
+
+We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (`full_length_weights.hdf5`) was trained with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (`partial_length_weights.hdf5`) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using *de novo* approaches. Both models achieve high classification performance in transcripts from a variety of different species (see our [article](https://www.biorxiv.org/content/10.1101/620880v1)). **For most cases, we recommend using `partial_length_weights.hdf5`.**
 
 <center>
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5'" class="pure-material-button-contained">Full-length transcripts</button>
@@ -16,10 +19,7 @@ curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_le
 curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial_length_weights.hdf5
 ```
 
-Both models achieves high classification performance in transcripts from a variety of different species (see our [article](https://www.biorxiv.org/content/10.1101/620880v1)).
-
-!!! warning ""
-    In case you want to train your own model, you should follow the steps described in the [`rnasamba train`](#rnasamba-train) section.
+In case you want to train your own model, you should follow the steps described in the [`rnasamba train`](#rnasamba-train) section.
 
 
 ## `rnasamba train`
