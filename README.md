@@ -1,5 +1,10 @@
 <p align="center"><a href="https://rnasamba.lge.ibi.unicamp.br/"><img src="https://raw.githubusercontent.com/apcamargo/RNAsamba/master/logo.png" width="350rem"></a></p>
 
+[![version status](https://img.shields.io/pypi/v/rnasamba.svg)](https://pypi.python.org/pypi/rnasamba)
+[![Bioconda](https://img.shields.io/conda/vn/bioconda/rnasamba.svg?color=green)](https://anaconda.org/bioconda/rnasamba)
+[![Downloads](https://pepy.tech/badge/rnasamba/month)](https://pepy.tech/project/rnasamba)
+[![BioConda Install](https://img.shields.io/conda/dn/bioconda/rnasamba.svg?style=flag&label=BioConda%20install)](https://anaconda.org/bioconda/rnasamba)
+
 - [Overview](#overview)
 - [Documentation](#documentation)
 - [Installation](#installation)
