@@ -1,9 +1,11 @@
 <p align="center"><a href="https://rnasamba.lge.ibi.unicamp.br/"><img src="https://raw.githubusercontent.com/apcamargo/RNAsamba/master/logo.png" width="350rem"></a></p>
 
-[![version status](https://img.shields.io/pypi/v/rnasamba.svg)](https://pypi.python.org/pypi/rnasamba)
-[![Bioconda](https://img.shields.io/conda/vn/bioconda/rnasamba.svg?color=green)](https://anaconda.org/bioconda/rnasamba)
-[![Downloads](https://pepy.tech/badge/rnasamba/month)](https://pepy.tech/project/rnasamba)
-[![BioConda Install](https://img.shields.io/conda/dn/bioconda/rnasamba.svg?style=flag&label=BioConda%20install)](https://anaconda.org/bioconda/rnasamba)
+[![PyPI](https://img.shields.io/pypi/v/rnasamba.svg?label=PyPI&color=green)](https://pypi.python.org/pypi/rnasamba)
+[![Conda](https://img.shields.io/conda/vn/bioconda/rnasamba.svg?label=Conda&color=green)](https://anaconda.org/bioconda/rnasamba)
+[![PyPI downloads](https://img.shields.io/pypi/dm/rnasamba?label=PyPI%20downloads&color=blue)](https://pypi.python.org/pypi/rnasamba)
+[![Conda downloads](https://img.shields.io/conda/dn/bioconda/rnasamba.svg?label=Conda%20downloads&color=blue)](https://anaconda.org/bioconda/rnasamba)
+[![Docker pulls](https://img.shields.io/docker/pulls/antoniopcamargo/rnasamba.svg?label=Docker%20pulls&color=blue)](https://hub.docker.com/r/antoniopcamargo/rnasamba)
+
 
 - [Overview](#overview)
 - [Documentation](#documentation)
