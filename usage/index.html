@@ -418,7 +418,7 @@
 <p class="admonition-title">What is a weights file?</p>
 <p>When a neural network classification model is trained the information it learns is numerically encoded in its weights. In order to use RNAsamba to classify your own sequences, you need to load weights obtained in a previous training iteration.</p>
 </div>
-<p>We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (<code>full_length_weights.hdf5</code>) was trained with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (<code>partial_length_weights.hdf5</code>) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using <em>de novo</em> approaches. Both models achieve high classification performance in transcripts from a variety of different species (see our <a href="https://www.biorxiv.org/content/10.1101/620880v1">article</a>). <strong>For most cases, we recommend using <code>partial_length_weights.hdf5</code>.</strong></p>
+<p>We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (<code>full_length_weights.hdf5</code>) was trained with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (<code>partial_length_weights.hdf5</code>) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using <em>de novo</em> approaches. Both models achieve high classification performance in transcripts from a variety of different species (see our <a href="https://www.biorxiv.org/content/10.1101/620880v1">article</a>). <strong>For most cases, we reccomend using <code>full_length_weights.hdf5</code>, unless you have a reason to suspect that your data contain a significative amount of truncated transcripts.</strong></p>
 <p><center>
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5'" class="pure-material-button-contained">Full-length transcripts</button>
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial_length_weights.hdf5'" class="pure-material-button-contained">Partial-length transcripts</button>
@@ -523,7 +523,8 @@
 
 
 <h2 id="using-the-docker-image">Using the Docker image</h2>
-<div class="codehilite"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">antoniopcamargo</span><span class="o">/</span><span class="n">rnasamba</span>
+<div class="codehilite"><pre><span></span><span class="o">#</span> <span class="n">Pull</span> <span class="n">the</span> <span class="n">Docker</span> <span class="n">image</span> <span class="k">to</span> <span class="n">your</span> <span class="n">computer</span><span class="p">:</span>
+<span class="n">docker</span> <span class="n">pull</span> <span class="n">antoniopcamargo</span><span class="o">/</span><span class="n">rnasamba</span>
 
 <span class="o">#</span> <span class="n">Training</span> <span class="n">example</span><span class="p">:</span>
 <span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="c1">--rm -v &quot;$(pwd):/app&quot; antoniopcamargo/rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa</span>
