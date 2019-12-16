@@ -5,7 +5,7 @@
 !!! question "What is a weights file?"
     When a neural network classification model is trained the information it learns is numerically encoded in its weights. In order to use RNAsamba to classify your own sequences, you need to load weights obtained in a previous training iteration.
 
-We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (`full_length_weights.hdf5`) was trained with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (`partial_length_weights.hdf5`) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using *de novo* approaches. Both models achieve high classification performance in transcripts from a variety of different species (see our [article](https://www.biorxiv.org/content/10.1101/620880v1)). **For most cases, we recommend using `partial_length_weights.hdf5`.**
+We provide two HDF5 files containing the weights of classification models trained with human trancript sequences. The first model (`full_length_weights.hdf5`) was trained with full-length transcripts and can be used in datasets comprised mostly or exclusively of complete transcript sequences. The second model (`partial_length_weights.hdf5`) was trained with both complete and truncated transcripts and is prefered in cases where there is a significant fraction of partial-length sequences, such as transcriptomes assembled using *de novo* approaches. Both models achieve high classification performance in transcripts from a variety of different species (see our [article](https://www.biorxiv.org/content/10.1101/620880v1)). **For most cases, we reccomend using `full_length_weights.hdf5`, unless you have a reason to suspect that your data contain a significative amount of truncated transcripts.**
 
 <center>
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5'" class="pure-material-button-contained">Full-length transcripts</button>
@@ -121,6 +121,7 @@ ENSMUST00000036304	0.03782	noncoding
 ## Using the Docker image
 
 ```
+# Pull the Docker image to your computer:
 docker pull antoniopcamargo/rnasamba
 
 # Training example:
