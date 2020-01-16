@@ -24,7 +24,7 @@ RNAsamba is a tool for computing the coding potential of RNA sequences using a n
 
 ## Web version
 
-RNAsamba can be used through a minimal web interface that is freely available online at [https://rnasamba.lge.ibi.unicamp.br/](https://rnasamba.lge.ibi.unicamp.br/). The source code of the web app can be found at [https://github.com/apcamargo/rnasamba-webapp](https://github.com/apcamargo/rnasamba-webapp).
+RNAsamba can be used through a minimal web interface that is freely available online at [https://rnasamba.lge.ibi.unicamp.br/](https://rnasamba.lge.ibi.unicamp.br/). The source code of the web app can be found at [https://github.com/apcamargo/rnasamba-webapp/](https://github.com/apcamargo/rnasamba-webapp/).
 
 ## Documentation
 
@@ -171,4 +171,4 @@ docker run -ti --rm -v "$(pwd):/app" antoniopcamargo/rnasamba classify -p predic
 
 ## Citation
 
-> Camargo, Antonio P., Vsevolod Sourkov, and Marcelo F. Carazzolle. "[RNAsamba: coding potential assessment using ORF and whole transcript sequence information](https://www.biorxiv.org/content/10.1101/620880v1)" *BioRxiv* (2019).
+> Camargo, A. P., Sourkov, V., Pereira, G. A. G. & Carazzolle, M. F.. "[RNAsamba: neural network-based assessment of the protein-coding potential of RNA sequences](https://academic.oup.com/nargab/article/2/1/lqz024/5701461)" *NAR Genomics and Bioinformatics* **2**, lqz024 (2020).
