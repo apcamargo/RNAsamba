@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -424,71 +424,71 @@
   <button onclick="location.href='https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial_length_weights.hdf5'" class="pure-material-button-contained">Partial-length transcripts</button>
 </center></p>
 <p>Alternatively, you can download the weight files in an command-line interface by executing the following commands:</p>
-<div class="codehilite"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="p">.</span><span class="n">githubusercontent</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">apcamargo</span><span class="o">/</span><span class="n">RNAsamba</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="k">data</span><span class="o">/</span><span class="n">full_length_weights</span><span class="p">.</span><span class="n">hdf5</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="p">.</span><span class="n">githubusercontent</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">apcamargo</span><span class="o">/</span><span class="n">RNAsamba</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="k">data</span><span class="o">/</span><span class="n">partial_length_weights</span><span class="p">.</span><span class="n">hdf5</span>
+<div class="codehilite"><pre><span></span><span class="err">curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/full_length_weights.hdf5</span>
+<span class="err">curl -O https://raw.githubusercontent.com/apcamargo/RNAsamba/master/data/partial_length_weights.hdf5</span>
 </pre></div>
 
 
 <p>In case you want to train your own model, you should follow the steps described in the <a href="#rnasamba-train"><code>rnasamba train</code></a> section.</p>
 <h2 id="rnasamba-train"><code>rnasamba train</code></h2>
 <p><code>rnasamba train</code> is the command for training a new classification model from a training dataset and saving the network weights into an HDF5 file. The user can specify the batch size (<code>--batch_size</code>) and the number of training epochs (<code>--epochs</code>). The user can also choose to activate early stopping (<code>--early_stopping</code>), which reduces training time and can help avoiding overfitting.</p>
-<div class="codehilite"><pre><span></span><span class="nv">usage</span>: <span class="nv">rnasamba</span> <span class="nv">train</span> [<span class="o">-</span><span class="nv">h</span>] [<span class="o">-</span><span class="nv">s</span> <span class="nv">EARLY_STOPPING</span>] [<span class="o">-</span><span class="nv">b</span> <span class="nv">BATCH_SIZE</span>] [<span class="o">-</span><span class="nv">e</span> <span class="nv">EPOCHS</span>]
-                      [<span class="o">-</span><span class="nv">v</span> {<span class="mi">0</span>,<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>}]
-                      <span class="nv">output_file</span> <span class="nv">coding_file</span> <span class="nv">noncoding_file</span>
+<div class="codehilite"><pre><span></span><span class="n">usage</span><span class="o">:</span> <span class="n">rnasamba</span> <span class="n">train</span> <span class="o">[-</span><span class="n">h</span><span class="o">]</span> <span class="o">[-</span><span class="n">s</span> <span class="n">EARLY_STOPPING</span><span class="o">]</span> <span class="o">[-</span><span class="n">b</span> <span class="n">BATCH_SIZE</span><span class="o">]</span> <span class="o">[-</span><span class="n">e</span> <span class="n">EPOCHS</span><span class="o">]</span>
+                      <span class="o">[-</span><span class="n">v</span> <span class="o">{</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">}]</span>
+                      <span class="n">output_file</span> <span class="n">coding_file</span> <span class="n">noncoding_file</span>
 
-<span class="nv">Train</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">classification</span> <span class="nv">model</span>.
+<span class="n">Train</span> <span class="n">a</span> <span class="k">new</span> <span class="n">classification</span> <span class="n">model</span><span class="o">.</span>
 
-<span class="nv">positional</span> <span class="nv">arguments</span>:
-  <span class="nv">output_file</span>           <span class="nv">output</span> <span class="nv">HDF5</span> <span class="nv">file</span> <span class="nv">containing</span> <span class="nv">weights</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">newly</span>
-                        <span class="nv">trained</span> <span class="nv">RNAsamba</span> <span class="nv">network</span>.
-  <span class="nv">coding_file</span>           <span class="nv">input</span> <span class="nv">FASTA</span> <span class="nv">file</span> <span class="nv">containing</span> <span class="nv">sequences</span> <span class="nv">of</span> <span class="nv">protein</span><span class="o">-</span>
-                        <span class="nv">coding</span> <span class="nv">transcripts</span>.
-  <span class="nv">noncoding_file</span>        <span class="nv">input</span> <span class="nv">FASTA</span> <span class="nv">file</span> <span class="nv">containing</span> <span class="nv">sequences</span> <span class="nv">of</span> <span class="nv">noncoding</span>
-                        <span class="nv">transcripts</span>.
+<span class="n">positional</span> <span class="k">arguments</span><span class="o">:</span>
+  <span class="n">output_file</span>           <span class="n">output</span> <span class="n">HDF5</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">weights</span> <span class="n">of</span> <span class="n">the</span> <span class="n">newly</span>
+                        <span class="n">trained</span> <span class="n">RNAsamba</span> <span class="n">network</span><span class="o">.</span>
+  <span class="n">coding_file</span>           <span class="n">input</span> <span class="n">FASTA</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">sequences</span> <span class="n">of</span> <span class="n">protein</span><span class="o">-</span>
+                        <span class="n">coding</span> <span class="n">transcripts</span><span class="o">.</span>
+  <span class="n">noncoding_file</span>        <span class="n">input</span> <span class="n">FASTA</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">sequences</span> <span class="n">of</span> <span class="n">noncoding</span>
+                        <span class="n">transcripts</span><span class="o">.</span>
 
-<span class="nv">optional</span> <span class="nv">arguments</span>:
-  <span class="o">-</span><span class="nv">h</span>, <span class="o">--</span><span class="nv">help</span>            <span class="k">show</span> <span class="nv">this</span> <span class="nv">help</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>
-  <span class="o">--</span><span class="nv">version</span>             <span class="k">show</span> <span class="nv">program</span><span class="s1">&#39;</span><span class="s">s version number and exit</span>
-  <span class="o">-</span><span class="nv">s</span> <span class="nv">EARLY_STOPPING</span>, <span class="o">--</span><span class="nv">early_stopping</span> <span class="nv">EARLY_STOPPING</span>
-                        <span class="nv">number</span> <span class="nv">of</span> <span class="nv">epochs</span> <span class="nv">after</span> <span class="nv">lowest</span> <span class="nv">validation</span> <span class="nv">loss</span> <span class="nv">before</span>
-                        <span class="nv">stopping</span> <span class="nv">training</span> <span class="ss">(</span><span class="nv">a</span> <span class="nv">fraction</span> <span class="nv">of</span> <span class="mi">0</span>.<span class="mi">1</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">training</span>
-                        <span class="nv">set</span> <span class="nv">is</span> <span class="nv">set</span> <span class="nv">apart</span> <span class="k">for</span> <span class="nv">validation</span> <span class="nv">and</span> <span class="nv">the</span> <span class="nv">model</span> <span class="nv">with</span> <span class="nv">the</span>
-                        <span class="nv">lowest</span> <span class="nv">validation</span> <span class="nv">loss</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">saved</span><span class="ss">)</span>. <span class="ss">(</span><span class="nv">default</span>: <span class="mi">0</span><span class="ss">)</span>
-  <span class="o">-</span><span class="nv">b</span> <span class="nv">BATCH_SIZE</span>, <span class="o">--</span><span class="nv">batch_size</span> <span class="nv">BATCH_SIZE</span>
-                        <span class="nv">number</span> <span class="nv">of</span> <span class="nv">samples</span> <span class="nv">per</span> <span class="nv">gradient</span> <span class="nv">update</span>. <span class="ss">(</span><span class="nv">default</span>: <span class="mi">128</span><span class="ss">)</span>
-  <span class="o">-</span><span class="nv">e</span> <span class="nv">EPOCHS</span>, <span class="o">--</span><span class="nv">epochs</span> <span class="nv">EPOCHS</span>
-                        <span class="nv">number</span> <span class="nv">of</span> <span class="nv">epochs</span> <span class="nv">to</span> <span class="nv">train</span> <span class="nv">the</span> <span class="nv">model</span>. <span class="ss">(</span><span class="nv">default</span>: <span class="mi">40</span><span class="ss">)</span>
-  <span class="o">-</span><span class="nv">v</span> {<span class="mi">0</span>,<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>}, <span class="o">--</span><span class="nv">verbose</span> {<span class="mi">0</span>,<span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">3</span>}
-                        <span class="nv">print</span> <span class="nv">the</span> <span class="nv">progress</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">training</span>. <span class="mi">0</span> <span class="o">=</span> <span class="nv">silent</span>, <span class="mi">1</span> <span class="o">=</span>
-                        <span class="nv">current</span> <span class="nv">step</span>, <span class="mi">2</span> <span class="o">=</span> <span class="nv">progress</span> <span class="nv">bar</span>, <span class="mi">3</span> <span class="o">=</span> <span class="nv">one</span> <span class="nv">line</span> <span class="nv">per</span>
-                        <span class="nv">epoch</span>. <span class="ss">(</span><span class="nv">default</span>: <span class="mi">0</span><span class="ss">)</span>
+<span class="n">optional</span> <span class="k">arguments</span><span class="o">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="o">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="k">this</span> <span class="n">help</span> <span class="n">message</span> <span class="n">and</span> <span class="n">exit</span>
+  <span class="o">--</span><span class="n">version</span>             <span class="n">show</span> <span class="n">program</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">version</span> <span class="n">number</span> <span class="n">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">s</span> <span class="n">EARLY_STOPPING</span><span class="o">,</span> <span class="o">--</span><span class="n">early_stopping</span> <span class="n">EARLY_STOPPING</span>
+                        <span class="n">number</span> <span class="n">of</span> <span class="n">epochs</span> <span class="n">after</span> <span class="n">lowest</span> <span class="n">validation</span> <span class="n">loss</span> <span class="n">before</span>
+                        <span class="n">stopping</span> <span class="n">training</span> <span class="o">(</span><span class="n">a</span> <span class="n">fraction</span> <span class="n">of</span> <span class="mf">0.1</span> <span class="n">of</span> <span class="n">the</span> <span class="n">training</span>
+                        <span class="kd">set</span> <span class="k">is</span> <span class="kd">set</span> <span class="n">apart</span> <span class="k">for</span> <span class="n">validation</span> <span class="n">and</span> <span class="n">the</span> <span class="n">model</span> <span class="k">with</span> <span class="n">the</span>
+                        <span class="n">lowest</span> <span class="n">validation</span> <span class="n">loss</span> <span class="n">will</span> <span class="n">be</span> <span class="n">saved</span><span class="o">).</span> <span class="o">(</span><span class="k">default</span><span class="o">:</span> <span class="mi">0</span><span class="o">)</span>
+  <span class="o">-</span><span class="n">b</span> <span class="n">BATCH_SIZE</span><span class="o">,</span> <span class="o">--</span><span class="n">batch_size</span> <span class="n">BATCH_SIZE</span>
+                        <span class="n">number</span> <span class="n">of</span> <span class="n">samples</span> <span class="n">per</span> <span class="n">gradient</span> <span class="n">update</span><span class="o">.</span> <span class="o">(</span><span class="k">default</span><span class="o">:</span> <span class="mi">128</span><span class="o">)</span>
+  <span class="o">-</span><span class="n">e</span> <span class="n">EPOCHS</span><span class="o">,</span> <span class="o">--</span><span class="n">epochs</span> <span class="n">EPOCHS</span>
+                        <span class="n">number</span> <span class="n">of</span> <span class="n">epochs</span> <span class="n">to</span> <span class="n">train</span> <span class="n">the</span> <span class="n">model</span><span class="o">.</span> <span class="o">(</span><span class="k">default</span><span class="o">:</span> <span class="mi">40</span><span class="o">)</span>
+  <span class="o">-</span><span class="n">v</span> <span class="o">{</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">},</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">{</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">}</span>
+                        <span class="n">print</span> <span class="n">the</span> <span class="n">progress</span> <span class="n">of</span> <span class="n">the</span> <span class="n">training</span><span class="o">.</span> <span class="mi">0</span> <span class="o">=</span> <span class="n">silent</span><span class="o">,</span> <span class="mi">1</span> <span class="o">=</span>
+                        <span class="n">current</span> <span class="n">step</span><span class="o">,</span> <span class="mi">2</span> <span class="o">=</span> <span class="n">progress</span> <span class="n">bar</span><span class="o">,</span> <span class="mi">3</span> <span class="o">=</span> <span class="n">one</span> <span class="n">line</span> <span class="n">per</span>
+                        <span class="n">epoch</span><span class="o">.</span> <span class="o">(</span><span class="k">default</span><span class="o">:</span> <span class="mi">0</span><span class="o">)</span>
 </pre></div>
 
 
 <h2 id="rnasamba-classify"><code>rnasamba classify</code></h2>
 <p><code>rnasamba classify</code> is the command for computing the coding potential of transcripts contained in an input FASTA file and classifying them into coding or non-coding. Optionally, the user can specify an output FASTA file (<code>--protein_fasta</code>) in which RNAsamba will write the translated sequences of the predicted coding ORFs. If multiple weight files are provided, RNAsamba will ensemble their predictions into a single output.</p>
-<div class="codehilite"><pre><span></span><span class="nv">usage</span>: <span class="nv">rnasamba</span> <span class="nv">classify</span> [<span class="o">-</span><span class="nv">h</span>] [<span class="o">-</span><span class="nv">p</span> <span class="nv">PROTEIN_FASTA</span>] [<span class="o">-</span><span class="nv">v</span> {<span class="mi">0</span>,<span class="mi">1</span>}]
-                         <span class="nv">output_file</span> <span class="nv">fasta_file</span> <span class="nv">weights</span> [<span class="nv">weights</span> ...]
+<div class="codehilite"><pre><span></span><span class="n">usage</span><span class="o">:</span> <span class="n">rnasamba</span> <span class="n">classify</span> <span class="o">[-</span><span class="n">h</span><span class="o">]</span> <span class="o">[-</span><span class="n">p</span> <span class="n">PROTEIN_FASTA</span><span class="o">]</span> <span class="o">[-</span><span class="n">v</span> <span class="o">{</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="o">}]</span>
+                         <span class="n">output_file</span> <span class="n">fasta_file</span> <span class="n">weights</span> <span class="o">[</span><span class="n">weights</span> <span class="o">...]</span>
 
-<span class="nv">Classify</span> <span class="nv">sequences</span> <span class="nv">from</span> <span class="nv">a</span> <span class="nv">input</span> <span class="nv">FASTA</span> <span class="nv">file</span>.
+<span class="n">Classify</span> <span class="n">sequences</span> <span class="n">from</span> <span class="n">a</span> <span class="n">input</span> <span class="n">FASTA</span> <span class="n">file</span><span class="o">.</span>
 
-<span class="nv">positional</span> <span class="nv">arguments</span>:
-  <span class="nv">output_file</span>           <span class="nv">output</span> <span class="nv">TSV</span> <span class="nv">file</span> <span class="nv">containing</span> <span class="nv">the</span> <span class="nv">results</span> <span class="nv">of</span> <span class="nv">the</span>
-                        <span class="nv">classification</span>.
-  <span class="nv">fasta_file</span>            <span class="nv">input</span> <span class="nv">FASTA</span> <span class="nv">file</span> <span class="nv">containing</span> <span class="nv">transcript</span> <span class="nv">sequences</span>.
-  <span class="nv">weights</span>               <span class="nv">input</span> <span class="nv">HDF5</span> <span class="nv">file</span><span class="ss">(</span><span class="nv">s</span><span class="ss">)</span> <span class="nv">containing</span> <span class="nv">weights</span> <span class="nv">of</span> <span class="nv">a</span> <span class="nv">trained</span>
-                        <span class="nv">RNAsamba</span> <span class="nv">network</span> <span class="ss">(</span><span class="k">if</span> <span class="nv">more</span> <span class="nv">than</span> <span class="nv">a</span> <span class="nv">file</span> <span class="nv">is</span> <span class="nv">provided</span>, <span class="nv">an</span>
-                        <span class="nv">ensembling</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">models</span> <span class="nv">will</span> <span class="nv">be</span> <span class="nv">performed</span><span class="ss">)</span>.
+<span class="n">positional</span> <span class="k">arguments</span><span class="o">:</span>
+  <span class="n">output_file</span>           <span class="n">output</span> <span class="n">TSV</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">results</span> <span class="n">of</span> <span class="n">the</span>
+                        <span class="n">classification</span><span class="o">.</span>
+  <span class="n">fasta_file</span>            <span class="n">input</span> <span class="n">FASTA</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">transcript</span> <span class="n">sequences</span><span class="o">.</span>
+  <span class="n">weights</span>               <span class="n">input</span> <span class="n">HDF5</span> <span class="n">file</span><span class="o">(</span><span class="n">s</span><span class="o">)</span> <span class="n">containing</span> <span class="n">weights</span> <span class="n">of</span> <span class="n">a</span> <span class="n">trained</span>
+                        <span class="n">RNAsamba</span> <span class="n">network</span> <span class="o">(</span><span class="k">if</span> <span class="n">more</span> <span class="n">than</span> <span class="n">a</span> <span class="n">file</span> <span class="k">is</span> <span class="n">provided</span><span class="o">,</span> <span class="n">an</span>
+                        <span class="n">ensembling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">models</span> <span class="n">will</span> <span class="n">be</span> <span class="n">performed</span><span class="o">).</span>
 
-<span class="nv">optional</span> <span class="nv">arguments</span>:
-  <span class="o">-</span><span class="nv">h</span>, <span class="o">--</span><span class="nv">help</span>            <span class="k">show</span> <span class="nv">this</span> <span class="nv">help</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>
-  <span class="o">--</span><span class="nv">version</span>             <span class="k">show</span> <span class="nv">program</span><span class="s1">&#39;</span><span class="s">s version number and exit</span>
-  <span class="o">-</span><span class="nv">p</span> <span class="nv">PROTEIN_FASTA</span>, <span class="o">--</span><span class="nv">protein_fasta</span> <span class="nv">PROTEIN_FASTA</span>
-                        <span class="nv">output</span> <span class="nv">FASTA</span> <span class="nv">file</span> <span class="nv">containing</span> <span class="nv">translated</span> <span class="nv">sequences</span> <span class="k">for</span>
-                        <span class="nv">the</span> <span class="nv">predicted</span> <span class="nv">coding</span> <span class="nv">ORFs</span>. <span class="ss">(</span><span class="nv">default</span>: <span class="nv">None</span><span class="ss">)</span>
-  <span class="o">-</span><span class="nv">v</span> {<span class="mi">0</span>,<span class="mi">1</span>}, <span class="o">--</span><span class="nv">verbose</span> {<span class="mi">0</span>,<span class="mi">1</span>}
-                        <span class="nv">print</span> <span class="nv">the</span> <span class="nv">progress</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">classification</span>. <span class="mi">0</span> <span class="o">=</span> <span class="nv">silent</span>,
-                        <span class="mi">1</span> <span class="o">=</span> <span class="nv">current</span> <span class="nv">step</span>. <span class="ss">(</span><span class="nv">default</span>: <span class="mi">0</span><span class="ss">)</span>
+<span class="n">optional</span> <span class="k">arguments</span><span class="o">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="o">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="k">this</span> <span class="n">help</span> <span class="n">message</span> <span class="n">and</span> <span class="n">exit</span>
+  <span class="o">--</span><span class="n">version</span>             <span class="n">show</span> <span class="n">program</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">version</span> <span class="n">number</span> <span class="n">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">PROTEIN_FASTA</span><span class="o">,</span> <span class="o">--</span><span class="n">protein_fasta</span> <span class="n">PROTEIN_FASTA</span>
+                        <span class="n">output</span> <span class="n">FASTA</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">translated</span> <span class="n">sequences</span> <span class="k">for</span>
+                        <span class="n">the</span> <span class="n">predicted</span> <span class="n">coding</span> <span class="n">ORFs</span><span class="o">.</span> <span class="o">(</span><span class="k">default</span><span class="o">:</span> <span class="n">None</span><span class="o">)</span>
+  <span class="o">-</span><span class="n">v</span> <span class="o">{</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="o">},</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">{</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="o">}</span>
+                        <span class="n">print</span> <span class="n">the</span> <span class="n">progress</span> <span class="n">of</span> <span class="n">the</span> <span class="n">classification</span><span class="o">.</span> <span class="mi">0</span> <span class="o">=</span> <span class="n">silent</span><span class="o">,</span>
+                        <span class="mi">1</span> <span class="o">=</span> <span class="n">current</span> <span class="n">step</span><span class="o">.</span> <span class="o">(</span><span class="k">default</span><span class="o">:</span> <span class="mi">0</span><span class="o">)</span>
 </pre></div>
 
 
@@ -496,14 +496,14 @@
 <ul>
 <li>Training a new classification model using <em>Mus musculus</em> data downloaded from GENCODE:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="n">rnasamba</span> <span class="n">train</span> <span class="o">-</span><span class="n">v</span> <span class="mi">2</span> <span class="n">mouse_model</span><span class="p">.</span><span class="n">hdf5</span> <span class="n">gencode</span><span class="p">.</span><span class="n">vM21</span><span class="p">.</span><span class="n">pc_transcripts</span><span class="p">.</span><span class="n">fa</span> <span class="n">gencode</span><span class="p">.</span><span class="n">vM21</span><span class="p">.</span><span class="n">lncRNA_transcripts</span><span class="p">.</span><span class="n">fa</span>
+<div class="codehilite"><pre><span></span><span class="err">rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa</span>
 </pre></div>
 
 
 <ul>
 <li>Classifying sequences using our pre-trained model (<code>partial_length_weights.hdf5</code>) and saving the predicted proteins into a FASTA file:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="n">rnasamba</span> <span class="n">classify</span> <span class="o">-</span><span class="n">p</span> <span class="n">predicted_proteins</span><span class="p">.</span><span class="n">fa</span> <span class="n">classification</span><span class="p">.</span><span class="n">tsv</span> <span class="k">input</span><span class="p">.</span><span class="n">fa</span> <span class="n">partial_length_weights</span><span class="p">.</span><span class="n">hdf5</span>
+<div class="codehilite"><pre><span></span><span class="err">rnasamba classify -p predicted_proteins.fa classification.tsv input.fa partial_length_weights.hdf5</span>
 </pre></div>
 
 
@@ -594,7 +594,7 @@
       
     </div>
     
-      <script src="../assets/javascripts/application.c648116f.js"></script>
+      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
