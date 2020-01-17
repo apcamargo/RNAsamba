@@ -14,4 +14,4 @@ RNAsamba is an open source package distributed under the GPL-3.0 license. Its so
 
 ## Citation
 
-Camargo, Antonio P., Vsevolod Sourkov, and Marcelo F. Carazzolle. "[RNAsamba: coding potential assessment using ORF and whole transcript sequence information](https://www.biorxiv.org/content/10.1101/620880v1)" *BioRxiv* (2019).
+Camargo, A. P., Sourkov, V., Pereira, G. A. G. & Carazzolle, M. F.. "[RNAsamba: neural network-based assessment of the protein-coding potential of RNA sequences](https://academic.oup.com/nargab/article/2/1/lqz024/5701461)" *NAR Genomics and Bioinformatics* **2**, lqz024 (2020).
