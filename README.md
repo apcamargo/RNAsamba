@@ -43,7 +43,7 @@ pip install rnasamba
 - Using conda:
 
 ```
-conda install -c bioconda rnasamba
+conda install -c conda-forge -c bioconda rnasamba
 ```
 
 ## Download the pre-trained models
