@@ -45,11 +45,7 @@ def read_fasta(filename):
 
 def tokenize_dna(sequence):
     lookup = {'N': 0, 'A': 1, 'T': 2, 'C': 3, 'G': 4}
-    if not sequence:
-        token = [0]
-    else:
-        token = [lookup[c] for c in sequence if c in lookup]
-    return token
+    return [0] if not sequence else [lookup[c] for c in sequence if c in lookup]
 
 
 def orf_indicator(orfs, maxlen):

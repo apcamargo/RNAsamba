@@ -64,11 +64,6 @@ class RNAsambaClassificationModel:
             model.load_weights(weights[0])
             logger.info('[4/4] Classifying sequences.')
             self.predictions = model.predict(self.input_dict)
-            self.coding_score = self.predictions[:, 1]
-            self.classification_label = np.argmax(self.predictions, axis=1)
-            self.classification_label = [
-                'coding' if i == 1 else 'noncoding' for i in self.classification_label
-            ]
         else:
             logger.info('[2/4] Building the models.')
             n_models = len(weights)
@@ -87,11 +82,11 @@ class RNAsambaClassificationModel:
             self.predictions = np.average(
                 [models[i].predict(self.input_dict) for i in range(n_models)], axis=0
             )
-            self.coding_score = self.predictions[:, 1]
-            self.classification_label = np.argmax(self.predictions, axis=1)
-            self.classification_label = [
-                'coding' if i == 1 else 'noncoding' for i in self.classification_label
-            ]
+        self.coding_score = self.predictions[:, 1]
+        self.classification_label = np.argmax(self.predictions, axis=1)
+        self.classification_label = [
+            'coding' if i == 1 else 'noncoding' for i in self.classification_label
+        ]
 
     def write_classification_output(self, output_file):
         with open(output_file, 'w') as handle:
@@ -107,13 +102,12 @@ class RNAsambaClassificationModel:
     def output_protein_fasta(self, protein_fasta):
         with open(protein_fasta, 'w') as handle:
             for i in range(len(self.classification_label)):
-                if self.classification_label[i] == 'coding':
-                    if self.protein_seqs[i]:
-                        handle.write('>')
-                        handle.write(self.seqs_names[i])
-                        handle.write('\n')
-                        handle.write(self.protein_seqs[i])
-                        handle.write('\n')
+                if self.classification_label[i] == 'coding' and self.protein_seqs[i]:
+                    handle.write('>')
+                    handle.write(self.seqs_names[i])
+                    handle.write('\n')
+                    handle.write(self.protein_seqs[i])
+                    handle.write('\n')
 
 
 class RNAsambaTrainModel:
