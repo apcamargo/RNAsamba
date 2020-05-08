@@ -137,7 +137,7 @@ def IGLOO(
         )(x)
     )
     if nb_stacks > 1:
-        for extra_l in range(nb_stacks - 1):
+        for _ in range(nb_stacks - 1):
             x = Conv1D(
                 nb_filters_conv1d,
                 conv1d_kernel,
@@ -157,7 +157,6 @@ def IGLOO(
                     l2reg=l2reg,
                 )(x)
             )
-    if nb_stacks > 1:
         mpi = Concatenate()(layers)
     else:
         mpi = layers[0]
