@@ -69,8 +69,7 @@ class RNAsambaAttention(Layer):
         weighted_second_branch = tf.multiply(
             tf.expand_dims(alpha[:, 1], axis=-1), second_branch
         )
-        attention_output = weighted_first_branch + weighted_second_branch
-        return attention_output
+        return weighted_first_branch + weighted_second_branch
 
     def compute_output_shape(self, input_shape):
         return input_shape[0][0], self.fulloutput
@@ -91,22 +90,21 @@ def IGLOO1D(
     build_backbone=False,
     dilf_factor=3,
 ):
-    igloo1d = IGLOO(
-        input_layer,
-        nb_patches,
-        nb_filters_conv1d,
-        patch_size=patch_size,
-        padding_style=padding_style,
-        add_batchnorm=add_batchnorm,
-        nb_stacks=nb_stacks,
-        l2reg=l2reg,
-        conv1d_kernel=conv1d_kernel,
-        max_pooling_kernel=max_pooling_kernel,
-        dropout=dropout,
-        build_backbone=build_backbone,
-        dilf_factor=dilf_factor,
-    )
-    return igloo1d
+    return IGLOO(
+            input_layer,
+            nb_patches,
+            nb_filters_conv1d,
+            patch_size=patch_size,
+            padding_style=padding_style,
+            add_batchnorm=add_batchnorm,
+            nb_stacks=nb_stacks,
+            l2reg=l2reg,
+            conv1d_kernel=conv1d_kernel,
+            max_pooling_kernel=max_pooling_kernel,
+            dropout=dropout,
+            build_backbone=build_backbone,
+            dilf_factor=dilf_factor,
+        )
 
 
 def IGLOO(
