@@ -61,22 +61,18 @@ class RNAsambaInput:
         self.aa_frequency_input = self.get_aa_frequency_input()
 
     def get_orfs(self):
-        orfs = orf.longest_orf_array(self._nucleotide_seqs)
-        return orfs
+        return orf.longest_orf_array(self._nucleotide_seqs)
 
     def get_nucleotide_input(self):
-        nucleotide_input = pad_sequences(
-            self._token_seqs, padding='post', maxlen=self.maxlen
-        )
-        return nucleotide_input
+        return pad_sequences(
+                self._token_seqs, padding='post', maxlen=self.maxlen
+            )
 
     def get_kmer_frequency_input(self):
-        kmer_frequency_input = kmer.kmer_frequencies_array(self._nucleotide_seqs)
-        return kmer_frequency_input
+        return kmer.kmer_frequencies_array(self._nucleotide_seqs)
 
     def get_orf_indicator_input(self):
-        orf_indicator_input = sequences.orf_indicator(self._orfs, self.maxlen)
-        return orf_indicator_input
+        return sequences.orf_indicator(self._orfs, self.maxlen)
 
     def get_protein_input(self):
         protein_input = []
@@ -89,5 +85,4 @@ class RNAsambaInput:
         return protein_input
 
     def get_aa_frequency_input(self):
-        aa_frequency_input = sequences.aa_frequency(self._aa_dict, self._orfs)
-        return aa_frequency_input
+        return sequences.aa_frequency(self._aa_dict, self._orfs)
