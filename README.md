@@ -22,6 +22,12 @@
 
 RNAsamba is a tool for computing the coding potential of RNA sequences using a neural network classification model. A description of the algorithm and benchmarks comparing RNAsamba to other tools can be found in our [article](#citation).
 
+## Citation
+
+If you use RNAsamba in your work, please cite our paper:
+
+> Camargo, A. P., Sourkov, V., Pereira, G. A. G. & Carazzolle, M. F.. "[RNAsamba: neural network-based assessment of the protein-coding potential of RNA sequences](https://academic.oup.com/nargab/article/2/1/lqz024/5701461)" *NAR Genomics and Bioinformatics* **2**, lqz024 (2020).
+
 ## Web version
 
 RNAsamba can be used through a minimal web interface that is freely available online at [https://rnasamba.lge.ibi.unicamp.br/](https://rnasamba.lge.ibi.unicamp.br/). The source code of the web app can be found at [https://github.com/apcamargo/rnasamba-webapp/](https://github.com/apcamargo/rnasamba-webapp/).
@@ -168,7 +174,3 @@ docker run -ti --rm -v "$(pwd):/app" antoniopcamargo/rnasamba train -v 2 mouse_m
 # Classification example:
 docker run -ti --rm -v "$(pwd):/app" antoniopcamargo/rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
 ```
-
-## Citation
-
-> Camargo, A. P., Sourkov, V., Pereira, G. A. G. & Carazzolle, M. F.. "[RNAsamba: neural network-based assessment of the protein-coding potential of RNA sequences](https://academic.oup.com/nargab/article/2/1/lqz024/5701461)" *NAR Genomics and Bioinformatics* **2**, lqz024 (2020).
