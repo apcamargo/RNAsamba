@@ -8,6 +8,7 @@
 
 
 - [Overview](#overview)
+- [Citation](#citation)
 - [Documentation](#documentation)
 - [Installation](#installation)
 - [Download the pre-trained models](#download-the-pre-trained-models)
@@ -16,7 +17,6 @@
   - [`rnasamba classify`](#rnasamba-classify)
 - [Examples](#examples)
 - [Using the Docker image](#using-the-docker-image)
-- [Citation](#citation)
 
 ## Overview
 
