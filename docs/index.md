@@ -2,7 +2,7 @@
 
 ## Overview
 
-RNAsamba is a tool for computing the coding potential of RNA sequences using a neural network classification model. It can be used to identify mRNAs and lncRNAs without relying on database searches. For details of RNAsamba's methods, check the [Theory](theory.md) section or read our [article](https://www.biorxiv.org/content/10.1101/620880v1).
+RNAsamba is a tool for computing the coding potential of RNA sequences using a neural network classification model. It can be used to identify mRNAs and lncRNAs without relying on database searches. For details of RNAsamba's methods, check the [Theory](theory.md) section or read our [article](https://academic.oup.com/nargab/article/2/1/lqz024/5701461).
 
 ## Web version
 

@@ -12,6 +12,6 @@ Traditionally, recurrent neural networks (RNNs) are the go-to models to create h
 
 Starting from the initial nucleotide sequence, RNAsamba computes the coding potential of a given transcript by combining information coming from two different sources: the Whole Sequence Branch (B<sub>1</sub>) and the Longest ORF Branch (B<sub>2</sub>). B<sub>1</sub> contains whole sequence representations of the transcript and can capture protein-coding signatures irrespective of the identification of the ORF. In contrast, B<sub>2</sub> carries information extracted from the longest identified ORF and the putative protein translated from it. By taking into account these two sources of sequence information, RNAsamba builds a thorough model of the transcript, improving the classification performance of the algorithm.
 
-For a more detailed description of RNAsamba's algorithm, please check our [article](https://www.biorxiv.org/content/10.1101/620880v1).
+For a more detailed description of RNAsamba's algorithm, please check our [article](https://academic.oup.com/nargab/article/2/1/lqz024/5701461).
 
 [^1]: Sourkov, Vsevolod. "IGLOO: Slicing the Features Space to Represent Long Sequences." *arXiv* (2018).
