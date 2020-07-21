@@ -64,6 +64,21 @@ fn sequence_kmer_frequencies(sequence: &str) -> Vec<f32> {
     kmer_frequency_array
 }
 
+/// kmer_frequencies_array(sequences)
+/// --
+///
+/// Computes the relative frequencies of 2-, 3- and 4-mers.
+///
+/// Parameters
+/// ----------
+/// sequences : list
+///    List containing n nucleotide sequences.
+///
+/// Returns
+/// -------
+/// ndarray
+///    A n * 336 numpy array containing the relative frequencies of each
+///    sequences the 2-, 3-, and 4-mer.
 #[pyfunction]
 fn kmer_frequencies_array(sequences: Vec<&str>) -> Py<PyArray2<f32>> {
     Array2::from_shape_vec(

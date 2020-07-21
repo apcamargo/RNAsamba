@@ -94,6 +94,21 @@ fn sequence_longest_orf(sequence: &str) -> (usize, usize, String) {
     longest
 }
 
+/// longest_orf_array(sequences)
+/// --
+///
+/// Finds the ORF within transcript sequences.
+///
+/// Parameters
+/// ----------
+/// sequences : list
+///    List containing n nucleotide sequences.
+///
+/// Returns
+/// -------
+/// list
+///    A list of n tuples, each containing the length of the translated protein,
+///    the position of the ORF start and the sequence of the putative protein.
 #[pyfunction]
 fn longest_orf_array(sequences: Vec<&str>) -> PyResult<Vec<(usize, usize, String)>> {
     Ok(sequences
