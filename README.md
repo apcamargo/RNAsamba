@@ -1,5 +1,6 @@
 <p align="center"><a href="https://rnasamba.lge.ibi.unicamp.br/"><img src="https://raw.githubusercontent.com/apcamargo/RNAsamba/master/logo.png" width="350rem"></a></p>
 
+[![DOI](https://img.shields.io/badge/DOI-10.1093%2Fnargab%2Flqz024-red.svg)](https://doi.org/10.1093/nargab/lqz024)
 [![PyPI](https://img.shields.io/pypi/v/rnasamba.svg?label=PyPI&color=green)](https://pypi.python.org/pypi/rnasamba)
 [![Conda](https://img.shields.io/conda/vn/bioconda/rnasamba.svg?label=Conda&color=green)](https://anaconda.org/bioconda/rnasamba)
 [![PyPI downloads](https://img.shields.io/pypi/dm/rnasamba?label=PyPI%20downloads&color=blue)](https://pypi.python.org/pypi/rnasamba)
