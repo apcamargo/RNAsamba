@@ -170,8 +170,8 @@ ENSMUST00000036304	0.03782	noncoding
 docker pull antoniopcamargo/rnasamba
 
 # Training example:
-docker run -ti --rm -v "$(pwd):/app" antoniopcamargo/rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
+docker run -ti --rm -u $(id -u) -v "$(pwd):/app" antoniopcamargo/rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa
 
 # Classification example:
-docker run -ti --rm -v "$(pwd):/app" antoniopcamargo/rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
+docker run -ti --rm -u $(id -u) -v "$(pwd):/app" antoniopcamargo/rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5
 ```
