@@ -527,10 +527,10 @@
 <span class="n">docker</span> <span class="n">pull</span> <span class="n">antoniopcamargo</span><span class="o">/</span><span class="n">rnasamba</span>
 
 <span class="o">#</span> <span class="n">Training</span> <span class="n">example</span><span class="p">:</span>
-<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="c1">--rm -v &quot;$(pwd):/app&quot; antoniopcamargo/rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="c1">--rm -u $(id -u) -v &quot;$(pwd):/app&quot; antoniopcamargo/rnasamba train -v 2 mouse_model.hdf5 gencode.vM21.pc_transcripts.fa gencode.vM21.lncRNA_transcripts.fa</span>
 
 <span class="o">#</span> <span class="n">Classification</span> <span class="n">example</span><span class="p">:</span>
-<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="c1">--rm -v &quot;$(pwd):/app&quot; antoniopcamargo/rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="c1">--rm -u $(id -u) -v &quot;$(pwd):/app&quot; antoniopcamargo/rnasamba classify -p predicted_proteins.fa classification.tsv input.fa full_length_weights.hdf5</span>
 </code></pre></div>
                 
                   
