@@ -6,7 +6,7 @@ trigger:
 variables:
   CIBW_BUILD: cp36-* cp37-* cp38-* cp39-*
   CIBW_SKIP: "*_i686"
-  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly --profile=minimal -y ; pip install -U setuptools setuptools-rust"
+  CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --profile=minimal -y ; pip install -U setuptools setuptools-rust"
   CIBW_ENVIRONMENT: PATH="$HOME/.cargo/bin:$PATH"
 
 jobs:
