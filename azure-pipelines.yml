@@ -4,14 +4,14 @@ trigger:
       - refs/tags/*
 
 variables:
-  CIBW_BUILD: cp36-* cp37-* cp38-* cp39-*
+  CIBW_BUILD: cp36-* cp37-* cp38-* cp39-* cp310-* cp311-*
   CIBW_SKIP: "*_i686"
   CIBW_BEFORE_BUILD: "curl https://sh.rustup.rs -sSf | sh -s -- --profile=minimal -y ; pip install -U setuptools setuptools-rust"
   CIBW_ENVIRONMENT: PATH="$HOME/.cargo/bin:$PATH"
 
 jobs:
 - job: linux
-  pool: {vmImage: 'Ubuntu-20.04'}
+  pool: {vmImage: 'Ubuntu-22.04'}
   steps:
     - task: UsePythonVersion@0
     - bash: |
